@@ -377,7 +377,6 @@ class Graph extends React.Component {
             selectedNode={this.state.selectedNode}
             hide={this.hideController.bind(this)}
             nodeSize={this.changeNodeSize}
-            linkSize={this.changeLinkSize.bind(this)}
             size={this.state.nodesSizes[this.state.currentId - 1][this.state.selectedNode.id]} />
           : null}
         {/* Declaramos el contenedor que llevará el canvas de los grafos, dentro declaramos que solo se muestre el grafo que se encuentra dentro del arreglo en nuestro momento actual - 1 para ajustar los indices */}
