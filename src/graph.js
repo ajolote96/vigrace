@@ -12,6 +12,7 @@ import "react-input-range/lib/css/index.css";
 import Menu from './menu';
 import Controller from './controller';
 import InputFile from './inputFile';
+import Interpreter from './interprete';
 
 class Graph extends React.Component {
   // El constructor debe llamar primero a super(props) para poder funcionar con el paso de parámetros
@@ -44,9 +45,11 @@ class Graph extends React.Component {
     this.setState({
       data: jsonF,
       currentId: 1,
-      scale: 1
+      scale: 1,
+      graphs: []
     }, () => { // La función setState tiene un callback dado que es una función asíncrona de JS, para asegurarse que lo que se quiera hacer después de cambiar el estado se debe usar el callback
       this.createGraph() // Después de cargar la información en memoria se pasa a crear los grafos
+      $("#cooScale").val(1)
     })
   }
 
@@ -356,6 +359,7 @@ class Graph extends React.Component {
           scaleCoordinates = {this.scaleCoordinates.bind(this)}
           lastMoment = {this.lastMoment.bind(this)}/> 
         <InputFile setJson={this.setJsonFile.bind(this)} /> {/* Llamamos el input invisible que sirve para cargar el archivo json */}
+        <Interpreter />
         {
           this.state.data ? // Usando el operador ternario evaluamos si tenemos información ya cargada para poder mostrar el slider, en caso contrario mostramos el aviso de que es necesario usar un json
             <div className="sliderContainer">

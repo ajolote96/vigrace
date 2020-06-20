@@ -1,0 +1,45 @@
+.inter-container{
+    position: absolute;
+    width: 60%;
+    height: 50%;
+    background-color: rgb(255, 222, 209);
+    z-index: 4;
+    left: 20%;
+    margin-top: 2em;
+    border-radius: 20px;
+}
+
+.inter-container h1{
+    text-align: center;
+    margin-top: 3%;
+}
+
+.inter-container ul {
+    margin-top: 1em;
+}
+
+.inter-container .close {
+    position: absolute;
+    right: 22px;
+    top: 2px;
+    width: 30px!important;
+    height: 30px!important;
+    opacity: 0.3;
+  }
+.inter-container  .close:hover {
+    opacity: 1;
+  }
+  .inter-container .close:before, .close:after {
+    position: absolute;
+    left: 20px;
+    content: ' ';
+    height: 17px;
+    width: 2px;
+    background-color: #333;
+  }
+ .inter-container .close:before {
+    transform: rotate(45deg);
+  }
+ .inter-container .close:after {
+    transform: rotate(-45deg);
+  }

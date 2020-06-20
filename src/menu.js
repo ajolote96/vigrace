@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 
 import "./menu.css"
 
@@ -10,7 +11,13 @@ import "./menu.css"
     Todo método que diga props.algunMétodo() viene desde la invocación del componente de orden mayor
 */
 
-function Menu(props){
+const Menu = (props) =>{
+    const showInterpreter = () =>{
+        $("#interSteps").removeAttr("hidden").show()
+
+    }
+
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <h5 style={{color: "white"}}>Vigrace</h5>
@@ -26,6 +33,7 @@ function Menu(props){
                         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <button onClick={() => props.uploadFile()} className="button-as-link actions">Cargar JSON</button>
                             <button onClick={() => props.takeSnapshot()} className="button-as-link actions">Capturar imagen</button>
+                            <button onClick={() => showInterpreter()} className="button-as-link actions">Descargar convertidor a JSON</button>
                             <button onClick={() => props.exit()} className="button-as-link actions">Salir</button>
                         </div>
                     </li>
