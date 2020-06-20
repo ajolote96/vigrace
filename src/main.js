@@ -31,36 +31,35 @@ function Main(){
     }
 
     return(
-        <Graph />
-        // <React.Fragment>
-        //     {logged ?  // con el operador ternario vemos si se ha logeado o no el usuario
-        //         <Graph exit={() => exit()}/>  : 
-        //         // Se llama al grafo pasando por props la función exit que cambia el estado de log
-        //         // En caso de no estar logeado se muestra este formulario de login
-        //         <div className="auth-wrapper">
-        //             <div className="auth-inner">
-        //                 <form>
-        //                     <img style={{height: "200px", marginBottom: "10px", display:"block", marginLeft:"auto", marginRight:"auto"}} src="http://www.cusur.udg.mx/es/sites/default/files/adjuntos/logo_udg-gris.png" alt="logo-udg"/>
-        //                     <h2>VIGRACE</h2>
-        //                     <h3>Ingreso al sistema</h3>
+        <React.Fragment>
+            {logged ?  // con el operador ternario vemos si se ha logeado o no el usuario
+                <Graph exit={() => exit()}/>  : 
+                // Se llama al grafo pasando por props la función exit que cambia el estado de log
+                // En caso de no estar logeado se muestra este formulario de login
+                <div className="auth-wrapper">
+                    <div className="auth-inner">
+                        <form>
+                            <img style={{height: "200px", marginBottom: "10px", display:"block", marginLeft:"auto", marginRight:"auto"}} src="http://www.cusur.udg.mx/es/sites/default/files/adjuntos/logo_udg-gris.png" alt="logo-udg"/>
+                            <h2>VIGRACE</h2>
+                            <h3>Ingreso al sistema</h3>
 
-        //                     <div className="form-group">
-        //                         <label>Usuario</label>
-        //                         <input type="text" id="username" className="form-control" placeholder="Ingrese usuario" />
-        //                     </div>
+                            <div className="form-group">
+                                <label>Usuario</label>
+                                <input type="text" id="username" className="form-control" placeholder="Ingrese usuario" />
+                            </div>
 
-        //                     <div className="form-group">
-        //                         <label>Contraseña</label>
-        //                         <input type="password" id="password" className="form-control" placeholder="Ingrese contraseña" />
-        //                     </div>
+                            <div className="form-group">
+                                <label>Contraseña</label>
+                                <input type="password" id="password" className="form-control" placeholder="Ingrese contraseña" />
+                            </div>
 
-        //                     <button onClick={(e) => checkData(e)} type="submit" className="btn btn-primary btn-block">Entrar</button>
+                            <button onClick={(e) => checkData(e)} type="submit" className="btn btn-primary btn-block">Entrar</button>
                             
-        //                 </form>
-        //             </div>
-        //         </div>
-        //     }
-        // </React.Fragment>
+                        </form>
+                    </div>
+                </div>
+            }
+        </React.Fragment>
     )
 }
 
