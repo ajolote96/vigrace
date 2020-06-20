@@ -22,7 +22,7 @@ const Interprete = () => {
                 </li>
                 <li>
                     <h5>Descargar el script</h5>
-                    <p>Una vez que tenga el intérprete instalado solo descargue el script dando clic aquí. <br/>Siga los pasos que se le indiquen en el script</p>
+                    <p>Una vez que tenga el intérprete instalado solo descargue el script dando clic <a href="./transformadorPython.py" download="script.py">aquí.</a> <br/>Ejecute el script dando doble clic en él. Siga los pasos que se le indiquen en el script.</p>
                 </li>
             </ul>
         </div>
