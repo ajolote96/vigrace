@@ -35,6 +35,7 @@ const Menu = (props) =>{
                             <button onClick={() => props.takeSnapshot()} className="button-as-link actions">Capturar imagen</button>
                             <button onClick={() => showInterpreter()} className="button-as-link actions">Descargar convertidor a JSON</button>
                             <button onClick={() => props.exit()} className="button-as-link actions">Salir</button>
+                            <button onClick={() => props.conifg()} className="button-as-link actions">Configuraciones</button>  
                         </div>
                     </li>
                 </ul>
