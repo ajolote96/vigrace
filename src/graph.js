@@ -23,7 +23,7 @@ class Graph extends React.Component {
     // State lleva el control de las variables propias de esta clase, son básicamente los atributos de la misma
     this.state = {
       data: null,
-      scale: 1,
+      scale: 10,
       showController: false,
       currentId: 1,
       minId: 1,
@@ -45,7 +45,7 @@ class Graph extends React.Component {
     this.setState({
       data: jsonF,
       currentId: 1,
-      scale: 1,
+      scale: 10,
       graphs: []
     }, () => { // La función setState tiene un callback dado que es una función asíncrona de JS, para asegurarse que lo que se quiera hacer después de cambiar el estado se debe usar el callback
       this.createGraph() // Después de cargar la información en memoria se pasa a crear los grafos
@@ -250,7 +250,7 @@ class Graph extends React.Component {
   scaleCoordinates = () =>{ // Nos permite ajustar la escala de los grafos
     let scale = document.getElementById("cooScale").value // Obtenemos el valor seleccionado desde el DOM
 
-    if(scale < 1 || scale > 20){ // Evitamos que se usen valores fuera de rango
+    if(scale < 10 || scale > 20){ // Evitamos que se usen valores fuera de rango
       alert("Escala fuera de rango")
       return
     }
@@ -260,7 +260,7 @@ class Graph extends React.Component {
     // Dado que tenemos el valor de la escala guardada en memoria lo que hacemos es 
     // remover la escala que se tenga actualmente para volver a los datos reales y poder aplicar la escala seleccionada
 
-    for(let i=1; i<=this.state.maxId; i++){
+    for(let i=10; i<=this.state.maxId; i++){
       data[i]["nodes"].forEach(node => {
         node.fx /= this.state.scale
         node.fy /= this.state.scale
