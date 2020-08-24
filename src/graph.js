@@ -248,7 +248,7 @@ class Graph extends React.Component {
   }
 
   scaleCoordinates = () =>{ // Nos permite ajustar la escala de los grafos
-    let scale = document.getElementById("cooScale").value // Obtenemos el valor seleccionado desde el DOM
+    let scale = document.getElementById("cooScale").value = 10; // Obtenemos el valor seleccionado desde el DOM
 
     if(scale < 10 || scale > 20){ // Evitamos que se usen valores fuera de rango
       alert("Escala fuera de rango")
