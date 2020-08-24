@@ -248,8 +248,9 @@ class Graph extends React.Component {
   }
 
   scaleCoordinates = () =>{ // Nos permite ajustar la escala de los grafos
-    let scale = 10 // Obtenemos el valor seleccionado desde el DOM
-    
+    let scale = document.getElementById("cooScale").value// Obtenemos el valor seleccionado desde el DOM
+    if(scale < 10){
+    scale = scale +10}
     if(scale < 10 || scale > 20){ // Evitamos que se usen valores fuera de rango
       alert("Escala fuera de rango")
       return
@@ -260,7 +261,7 @@ class Graph extends React.Component {
     // Dado que tenemos el valor de la escala guardada en memoria lo que hacemos es 
     // remover la escala que se tenga actualmente para volver a los datos reales y poder aplicar la escala seleccionada
 
-    for(let i=10; i<=this.state.maxId; i++){
+    for(let i=1; i<=this.state.maxId; i++){
       data[i]["nodes"].forEach(node => {
         node.fx /= this.state.scale
         node.fy /= this.state.scale
