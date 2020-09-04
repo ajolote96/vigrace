@@ -34,6 +34,7 @@ const Menu = (props) =>{
                             <button onClick={() => props.uploadFile()} className="button-as-link actions">Cargar JSON</button>
                             <button onClick={() => props.takeSnapshot()} className="button-as-link actions">Capturar imagen</button>
                             <button onClick={() => showInterpreter()} className="button-as-link actions">Descargar convertidor a JSON</button>
+                            <button onClick={() => showInterpreter()} className="button-as-link actions">Configuracion</button>
                             <button onClick={() => props.exit()} className="button-as-link actions">Salir</button>
                         </div>
                     </li>
