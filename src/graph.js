@@ -49,7 +49,7 @@ class Graph extends React.Component {
       graphs: []
     }, () => { // La función setState tiene un callback dado que es una función asíncrona de JS, para asegurarse que lo que se quiera hacer después de cambiar el estado se debe usar el callback
       this.createGraph() // Después de cargar la información en memoria se pasa a crear los grafos
-      $("#cooScale").val(10)
+      $("#cooScale").val()
     })
   }
 
