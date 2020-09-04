@@ -51,7 +51,7 @@ const Menu = (props) =>{
                         </div>
                         <div className="scale-div">
                             <label style={{display: "inline", color:"white"}}>Escalado</label>
-                            <input onChange={() => props.scaleCoordinates()} id="cooScale" defaultValue={10} style={{display: "inline"}} type="number" min={10} max={20}/>
+                            <input onChange={() => props.scaleCoordinates()} id="cooScale" defaultValue={1} style={{display: "inline"}} type="number" min={10} max={20}/>
                         </div>
                     </React.Fragment>
                     : null
