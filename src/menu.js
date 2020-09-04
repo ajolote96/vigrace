@@ -34,7 +34,6 @@ const Menu = (props) =>{
                             <button onClick={() => props.uploadFile()} className="button-as-link actions">Cargar JSON</button>
                             <button onClick={() => props.takeSnapshot()} className="button-as-link actions">Capturar imagen</button>
                             <button onClick={() => showInterpreter()} className="button-as-link actions">Descargar convertidor a JSON</button>
-                            <button onClick={() => showInterpreter()} className="button-as-link actions">Configuracion</button>
                             <button onClick={() => props.exit()} className="button-as-link actions">Salir</button>
                         </div>
                     </li>
@@ -51,7 +50,7 @@ const Menu = (props) =>{
                         </div>
                         <div className="scale-div">
                             <label style={{display: "inline", color:"white"}}>Escalado</label>
-                            <input onChange={() => props.scaleCoordinates()} id="cooScale" defaultValue={1} style={{display: "inline"}} type="number" min={10} max={20}/>
+                            <input onChange={() => props.scaleCoordinates()} id="cooScale" defaultValue={1} style={{display: "inline"}} type="number" min={1} max={20}/>
                         </div>
                     </React.Fragment>
                     : null
@@ -59,6 +58,6 @@ const Menu = (props) =>{
             </div>
             </nav>
     )
-}     
+}
 
 export default Menu;
