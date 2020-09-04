@@ -26,7 +26,7 @@ class Graph extends React.Component {
       scale: 1,
       showController: false,
       currentId: 1,
-      minId: 1,
+      minId: 10,
       maxId: null,
       nodesSizes: [],
       colors: [],
@@ -259,7 +259,6 @@ class Graph extends React.Component {
     
     // Dado que tenemos el valor de la escala guardada en memoria lo que hacemos es 
     // remover la escala que se tenga actualmente para volver a los datos reales y poder aplicar la escala seleccionada
-    maxId == 11;
     for(let i=10; i<=this.state.maxId; i++){
       data[i]["nodes"].forEach(node => {
         node.fx /= this.state.scale
