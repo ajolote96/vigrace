@@ -23,10 +23,10 @@ class Graph extends React.Component {
     // State lleva el control de las variables propias de esta clase, son básicamente los atributos de la misma
     this.state = {
       data: null,
-      scale: 10,
+      scale: 1,
       showController: false,
       currentId: 1,
-      minId: 10,
+      minId: 1,
       maxId: null,
       nodesSizes: [],
       colors: [],
