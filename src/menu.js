@@ -37,7 +37,6 @@ const Menu = (props) =>{
                         <button className="nav-link dropdown-toggle button-as-link1" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Configuraciones 
                         </button>
-                        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <button onClick={() => props.exit()} className="button-as-link actions">Salir</button>
                         </div>
                     </li>
