@@ -34,10 +34,7 @@ const Menu = (props) =>{
                             <button onClick={() => props.uploadFile()} className="button-as-link actions">Cargar JSON</button>
                             <button onClick={() => props.takeSnapshot()} className="button-as-link actions">Capturar imagen</button>
                             <button onClick={() => showInterpreter()} className="button-as-link actions">Descargar convertidor a JSON</button>
-            <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul className="navbar-nav">
-                    <li className="nav-item dropdown">
-                        <button className="nav-link dropdown-toggle button-as-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button className="nav-link dropdown-toggle button-as-link1" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Configuraciones 
                         </button>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
