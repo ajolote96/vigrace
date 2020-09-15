@@ -34,9 +34,16 @@ const Menu = (props) =>{
                             <button onClick={() => props.uploadFile()} className="button-as-link actions">Cargar JSON</button>
                             <button onClick={() => props.takeSnapshot()} className="button-as-link actions">Capturar imagen</button>
                             <button onClick={() => showInterpreter()} className="button-as-link actions">Descargar convertidor a JSON</button>
-                            <button className="nav-link dropdown-toggle button-as-link1" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Configuraciones
+                           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul className="navbar-nav">
+                    <li className="nav-item dropdown">
+                        <button className="nav-link dropdown-toggle button-as-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Acciones
                         </button>
+                        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <button onClick={() => props.exit()} className="button-as-link actions">Salir</button>
                         </div>
                     </li>
