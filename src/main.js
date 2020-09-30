@@ -54,7 +54,7 @@ function Main(){
                             </div>
 
                             <button onClick={(e) => checkData(e)} type="submit" className="btn btn-primary btn-block">Entrar</button>
-                            
+                             <button onClick={(e) => checkData(e)} type="submit" className="btn btn-primary btn-block">Login</button>
                         </form>
                     </div>
                 </div>
