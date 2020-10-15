@@ -55,9 +55,6 @@ const Menu = (props) =>{
                         <div className="scale-div">
                             <label style={{display: "inline", color:"white"}}>Escalado</label>
                             <input onChange={() => props.scaleCoordinates()} id="cooScale" defaultValue={10} style={{display: "inline"}} type="number" min={10} max={20}/>
-                            <a href="#" onclick="javascript:document.body.style.backgroundColor='#f00'; document.body.style.backgroundImage='none';">Rojo</a>
-                            <a href="#" onclick="javascript:document.body.style.backgroundColor='#fff'; document.body.style.backgroundImage='none';">Blanco</a>
-                            <a href="#" onclick="javascript:document.body.style.backgroundColor='#000'; document.body.style.backgroundImage='none';">Negro</a>
                         </div>
                     </React.Fragment>
                     : null
