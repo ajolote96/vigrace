@@ -61,6 +61,9 @@ const Menu = (props) =>{
                 }
             </div>
             </nav>
+        <a href="#" onclick="javascript:document.body.style.backgroundColor='#585A5D'; document.body.style.backgroundImage='none'; ">Gris</a>
+        <a href="#" onclick="javascript:document.body.style.backgroundColor='#fff'; document.body.style.backgroundImage='none';">Blanco</a>
+        <a href="#" onclick="javascript:document.body.style.backgroundColor='#000'; document.body.style.backgroundImage='none';">Negro</a>	
     )
 }
 
