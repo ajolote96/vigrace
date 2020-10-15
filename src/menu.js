@@ -37,7 +37,9 @@ const Menu = (props) =>{
                         <button className="nav-link dropdown-toggle button-as-link1" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Configuraciones 
                         </button>
-                            <button onClick={() => props.exit()} className="button-as-link actions">Salir</button>
+                            <a href="#" onclick="javascript:document.body.style.backgroundColor='#f00'; document.body.style.backgroundImage='none';">Rojo</a>
+                            <a href="#" onclick="javascript:document.body.style.backgroundColor='#fff'; document.body.style.backgroundImage='none';">Blanco</a>
+                            <a href="#" onclick="javascript:document.body.style.backgroundColor='#000'; document.body.style.backgroundImage='none';">Negro</a>
                         </div>
                     </li>
                 </ul>
