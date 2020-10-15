@@ -41,6 +41,9 @@ const Menu = (props) =>{
                         </div>
                     </li>
                 </ul>
+                <a href="#" onclick="javascript:document.body.style.backgroundColor='#585A5D'; document.body.style.backgroundImage='none';">Gris</a>
+<a href="#" onclick="javascript:document.body.style.backgroundColor='#fff'; document.body.style.backgroundImage='none';">Blanco</a>
+<a href="#" onclick="javascript:document.body.style.backgroundColor='#000'; document.body.style.backgroundImage='none';">Negro</a>
                 {props.showPlayControls ? // Usando el operador ternario se puede ver si se debe o no mostrar los controles de reproducción y de escala
                     <React.Fragment>
                         <div className="playControler">
