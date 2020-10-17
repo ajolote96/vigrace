@@ -34,8 +34,7 @@ const Menu = (props) =>{
                             <button onClick={() => props.uploadFile()} className="button-as-link actions">Cargar JSON</button>
                             <button onClick={() => props.takeSnapshot()} className="button-as-link actions">Capturar imagen</button>
                             <button onClick={() => showInterpreter()} className="button-as-link actions">Descargar convertidor a JSON</button>
-                        <button className="nav-link dropdown-toggle button-as-link1" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Configuraciones 
+                            <button onClick={() => <a href="#" onclick="javascript:document.body.style.backgroundColor='#000'; document.body.style.backgroundImage='none';">Negro</a></button>  
                         </button>
                         </div>
                     </li>
