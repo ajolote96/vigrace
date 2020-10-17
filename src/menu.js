@@ -35,7 +35,7 @@ const Menu = (props) =>{
                             <button onClick={() => props.takeSnapshot()} className="button-as-link actions">Capturar imagen</button>
                             <button onClick={() => showInterpreter()} className="button-as-link actions">Descargar convertidor a JSON</button>
                             <button onClick={() => "javascript:document.body.style.backgroundColor='#000'">Negro</button>  
-                        </button>
+                        
                         </div>
                     </li>
                 </ul>
