@@ -50,7 +50,7 @@ const Menu = (props) =>{
                 <ul class="dropdown-menu" role="menu">
     <li><a href="#">Blanco #1</a></li>
     <li><a href="#">Negro #2</a></li>
-    <li><button> <a href="#" onclick="javascript:document.body.style.backgroundColor='#000';">Negro</a></button></li>
+    <li><button> <a href="#" onclick="javascript:document.body.style.backgroundColor='#000'; document.body.style.backgroundImage='none';">Negro</a></button></li>
     </ul>
     </div>
                 {props.showPlayControls ? // Usando el operador ternario se puede ver si se debe o no mostrar los controles de reproducción y de escala
