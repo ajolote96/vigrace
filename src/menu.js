@@ -40,7 +40,7 @@ const Menu = (props) =>{
                     </li>
                 </ul>
   <div class="btn-group">
-  <button type="button" class="btn btn-danger">Título del botón</button>
+  <button type="button" class="btn btn-danger">Colores de Fondo</button>
 
   <button type="button" class="btn btn-danger dropdown-toggle"
           data-toggle="dropdown">
@@ -48,11 +48,10 @@ const Menu = (props) =>{
     <span class="sr-only">Desplegar menú</span>
   </button>
                 <ul class="dropdown-menu" role="menu">
-    <li><a href="#">Acción #1</a></li>
-    <li><a href="#">Acción #2</a></li>
-    <li><a href="#">Acción #3</a></li>
+    <li><a href="#">Blanco #1</a></li>
+    <li><a href="#">Negro #2</a></li>
+    <li><a href="#">Gris #3</a></li>
     <li class="divider"></li>
-    <li><a href="#">Acción #4</a></li>
     </ul>
     </div>
                 {props.showPlayControls ? // Usando el operador ternario se puede ver si se debe o no mostrar los controles de reproducción y de escala
