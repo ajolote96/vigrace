@@ -50,7 +50,7 @@ const Menu = (props) =>{
                 <ul class="dropdown-menu" role="menu">
     <li><a href="#">Blanco #1</a></li>
     <li><a href="#">Negro #2</a></li>
-    <li><a href="#">Gris #3</a></li>
+    <li><href="#" onclick="javascript:document.body.style.backgroundColor='#585A5D'; document.body.style.backgroundImage='none'; ">Gris</a></li>
     <li class="divider"></li>
     </ul>
     </div>
