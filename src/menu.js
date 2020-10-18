@@ -20,7 +20,7 @@ const Menu = (props) =>{
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <h5 style={{color: "black"}}>Vigrace</h5>
+            <h5 style={{color: "white"}}>Vigrace</h5>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
