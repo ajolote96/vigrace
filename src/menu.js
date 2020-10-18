@@ -39,7 +39,7 @@ const Menu = (props) =>{
                         </div>
                     </li>
                 </ul>
-               
+               <button className="nav-link dropdown-toggle button-as-link" href="#" id="navbarDropdownMenuLinkConfig" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {props.showPlayControls ? // Usando el operador ternario se puede ver si se debe o no mostrar los controles de reproducción y de escala
                     <React.Fragment>
                         <div className="playControler">
