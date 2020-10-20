@@ -197,7 +197,7 @@ class Graph extends React.Component {
       graphData={this.state.data[this.state.currentId]}
       rendererConfig={{preserveDrawingBuffer: true}}
       nodeResolution={200}
-     // backgroundColor={"#919191"}
+      background={this.state.data("#919191")}
       nodeVal={nod => sizes[this.state.currentId - 1][nod.id] }
       nodeColor={() => this.state.colors[this.state.currentId - 1]}
       nodeLabel={"name"}
@@ -349,7 +349,6 @@ class Graph extends React.Component {
       <div style={{ margin: "0" }}>
         <Menu // Llamamos al menu, el navbar que se tiene en la parte superior
           uploadFile={this.chooseJsonFile.bind(this)} 
-          background={this.state.data("#919191")}
           exit={this.props.exit} 
           showPlayControls={this.state.data ? true : false}
           takeSnapshot = {this.takeSnapshot.bind(this)}
