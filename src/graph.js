@@ -349,7 +349,7 @@ class Graph extends React.Component {
       <div style={{ margin: "0" }}>
         <Menu // Llamamos al menu, el navbar que se tiene en la parte superior
           uploadFile={this.chooseJsonFile.bind(this)} 
-          backgroundGray={this.state.data{"#919191"}
+          backgroundGray={this.state.data("#919191")}
           exit={this.props.exit} 
           showPlayControls={this.state.data ? true : false}
           takeSnapshot = {this.takeSnapshot.bind(this)}
