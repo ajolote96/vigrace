@@ -49,7 +49,7 @@ class Graph extends React.Component {
       graphs: []
     }, () => { // La función setState tiene un callback dado que es una función asíncrona de JS, para asegurarse que lo que se quiera hacer después de cambiar el estado se debe usar el callback
       this.createGraph() // Después de cargar la información en memoria se pasa a crear los grafos
-      $("#cooScale").val(10)
+      $("#cooScale").val(1)
     })
   }
 
@@ -116,8 +116,8 @@ class Graph extends React.Component {
       ref = {this.fgRef} // Asignamos la referencia que creamos en el constructor
       nodeResolution={10} // Declaramos la resolución de los nodos, entre mayor sea, será necesario más poder de procesamiento y puede que el navegador se ralentice
       backgroundColor= {this.getRandomColor()} // Asignamos el color de fondo del grafo
-      backgroundColor={"#919191"}
-      backgroundColor={"#000"}
+      backgroundColor2={"#919191"}
+      backgroundColor1={"#000"}
       nodeColor={() => color} // Indicamos el color de los nodos
       nodeLabel={"name"} // Indicamos el texto que aparece cuando ponemos el cursor sobre algún nodo. La cadena que se indique debe ser una llave que se encuentre dentro de un objeto nodo, puede ser cualquiera
       showNavInfo={true} // Indicamos si se muestran los controles de navegación en la parte baja del grafo
