@@ -45,7 +45,7 @@ class Graph extends React.Component {
     this.setState({
       data: jsonF,
       currentId: 1,
-      scale: 1,
+      scale: 10,
       graphs: []
     }, () => { // La función setState tiene un callback dado que es una función asíncrona de JS, para asegurarse que lo que se quiera hacer después de cambiar el estado se debe usar el callback
       this.createGraph() // Después de cargar la información en memoria se pasa a crear los grafos
