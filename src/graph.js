@@ -344,7 +344,6 @@ class Graph extends React.Component {
   }
      bakcgroundBlack = () =>{
       backgroundColor={"#919191"}
-                   })
      }
 
   render() { // El método render debe devolver un solo objeto sugar HTML, que puede ser cualquiera y con lo que sea dentro
