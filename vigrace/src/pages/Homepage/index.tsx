@@ -15,7 +15,7 @@ export default function Homepage() {
         const data = Object.fromEntries(new FormData(event.currentTarget));
         setTimeout(() => {
             if (data.user === "admin" && data.password === "admin") {
-                navigate("/home");
+                navigate("/dashboard");
             } else {
                 addToast({
                     title: "Valores incorrectos", 

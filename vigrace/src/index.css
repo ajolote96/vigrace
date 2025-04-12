@@ -11,3 +11,8 @@
 svg:focus {
   outline: none; 
 }
+
+.backdrop-safari {
+  backdrop-filter: blur(10px);
+  --webkit-backdrop-filter: blur(10px);
+}
