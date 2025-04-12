@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router"
 import Homepage from "../pages/Homepage"
+import { useTheme } from "@heroui/use-theme"
 
 export default function AppRouter(){
+    useTheme(); 
     return (
         <Router>
             <Routes>
