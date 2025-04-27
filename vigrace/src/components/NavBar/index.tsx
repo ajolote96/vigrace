@@ -11,16 +11,57 @@ import { FaPowerOff, FaPause as Pause } from "react-icons/fa6";
 import { FaCode, FaImage as Image } from "react-icons/fa";
 import { useTheme } from "@heroui/use-theme";
 import { IoPlaySkipBack as Back, IoPlaySkipForward as Next} from "react-icons/io5";
+import { TbLayoutSidebarLeftCollapseFilled as Layout } from "react-icons/tb";
 import type { ReactNode } from "react";
-
+import { useState } from "react";
+import { motion, type Variants } from "framer-motion";
 
 export default function Sidebar({children}: {children: ReactNode}) {
     const { theme, setTheme } = useTheme();
+    const [isOpen, setIsOpen] = useState<boolean>(true); 
+
+    function handleToggle(): void {
+        setIsOpen((prev: boolean) => !prev); 
+    }
+
+    
+    const sidebarVariants: Variants = {
+        open: {
+            width: "16.6666667%",
+            display: "flex",
+            transition: {
+                duration: 0.5,
+                ease: "easeInOut",
+            },
+        },
+        closed: {
+            display: "none", 
+            width: 0,
+        },
+    }
+
+    const mainCotenntVarianst: Variants = {
+        open: {
+            width: "83.3333333%",
+            transition: {
+                duration: 0.5,
+                ease: "easeInOut",
+            },
+        },
+        closed: {
+            width: "100%",
+        },
+    }
 
     return (
         <div className="w-full flex flex-col max-h-screen">
-            <nav className="flex flex-row items-center px-3 justify-between w-full h-[5vh] bg-foreground-400/10">
-                <div className="flex flex-row gap-2">
+            <nav className="flex flex-row items-center px-3 py-2 justify-between w-full h-[5vh] bg-foreground-400/10">
+                <div className="flex flex-row gap-2 items-center">
+                    <Tooltip content="Colapsar barra lateral">
+                        <Button isIconOnly variant="flat" onPress={handleToggle}>
+                            <Layout aria-hidden className="focus:outline-none text-2xl"/>
+                        </Button>
+                    </Tooltip>
                     <h1 className="font-extrabold text-xl">Vigrace &bull; Playground</h1>
                 </div>
                 <div className="flex flex-row items-center justify-between w-auto gap-2">
@@ -54,8 +95,12 @@ export default function Sidebar({children}: {children: ReactNode}) {
                     </Button>
                 </div>
             </nav>
-            <div className="w-full flex-row items-start justify-start" >
-            <aside className="flex flex-col items-center min-h-[95vh] gap-4 justify-start px-3 w-1/6 bg-foreground-400/10  ">
+            <div className="flex flex-row w-full h-[94vh] bg-background text-foreground">
+            <motion.aside 
+            animate={isOpen ? "open" : "closed"}
+            variants={sidebarVariants}
+            data-open={isOpen}
+            className="flex border-r-1 overflow-hidden  dark:border-gray-800 border-gray-200 flex-col items-center min-h-[94vh] gap-4 justify-start px-3 w-1/6 bg-foreground-400/10  ">
                 <Select placeholder="Escoge un sujeto.">
                     <SelectItem>Sujeto 0</SelectItem>
                     <SelectItem>Sujeto 1</SelectItem>
@@ -88,9 +133,14 @@ export default function Sidebar({children}: {children: ReactNode}) {
                 />
 
                 <Slider label="Cuadro actual" />
-            </aside>
-            {children}
+            </motion.aside>
+            <motion.div variants={mainCotenntVarianst} 
+            animate={isOpen ? "open" : "closed"}
+            className="flex flex-col w-full h-full bg-background text-foreground">
+                {children}
+            </motion.div>
             </div>
         </div>
+
     );
 }
