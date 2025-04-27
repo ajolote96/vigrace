@@ -119,13 +119,12 @@ export default function BrainModel() {
           {activeNode === idx && (
             <Html
               distanceFactor={8}
+              className="bg-foreground-400/15 backdrop-safari text-black dark:text-white font-extrabold"
               style={{
-                background: "white",
                 padding: "5px 10px",
                 borderRadius: "8px",
                 whiteSpace: "nowrap",
                 fontSize: "12px",
-                color: "black",
                 boxShadow: "0 0 10px rgba(0,0,0,0.3)",
                 transform: "translate(-50%, -120%)",
               }}
