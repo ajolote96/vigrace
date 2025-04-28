@@ -23,16 +23,15 @@ export default function BrainModel() {
     { position: [0, 2.35, 0], name: "Nodo Cz" },
     { position: [0.6, 2.15, 0], name: "Nodo C2" },
     { position: [-0.6, 2.15, 0], name: "Nodo C4" },
-    { position: [0.6, 2, -0.6], name: "Nodo P3" },
-    { position: [-0.6, 2, -0.6], name: "Nodo P4" },
+    { position: [0.5, 2.1, -0.6], name: "Nodo P3" },
+    { position: [-0.5, 2.1, -0.6], name: "Nodo P4" },
     { position: [0, 2.15, -0.7], name: "Nodo Pz" },
-    { position: [0.6, 2, 0.7], name: "Nodo F3" },
-    { position: [-0.6, 2, 0.7], name: "Nodo F4" },
+    { position: [0.5, 2, 0.7], name: "Nodo F3" },
+    { position: [-0.5, 2, 0.7], name: "Nodo F4" },
     { position: [-0, 2.2, 0.7], name: "Nodo Fz" },
+    { position: [0.35, 1.8, -1], name: "Nodo O1"},   
+    { position: [-0.35, 1.8, -1], name: "Nodo O2"}    
 
-
-
-    
   ]);
 
   const [links] = useState<Link[]>([
