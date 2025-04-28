@@ -17,21 +17,31 @@ type Link = {
 export default function BrainModel() {
   const model = useLoader(GLTFLoader, "/brain_project.glb");
   const brainRef = useRef<THREE.Group>(null);
-  const { camera } = useThree();
+  useThree(); 
 
-  const [nodes, setNodes] = useState<Node[]>([
+  const [nodes] = useState<Node[]>([
     { position: [0, 2.35, 0], name: "Nodo Cz" },
     { position: [0.6, 2.15, 0], name: "Nodo C2" },
     { position: [-0.6, 2.15, 0], name: "Nodo C4" },
     { position: [0.5, 2.1, -0.6], name: "Nodo P3" },
     { position: [-0.5, 2.1, -0.6], name: "Nodo P4" },
     { position: [0, 2.15, -0.7], name: "Nodo Pz" },
-    { position: [0.5, 2, 0.7], name: "Nodo F3" },
-    { position: [-0.5, 2, 0.7], name: "Nodo F4" },
-    { position: [-0, 2.2, 0.7], name: "Nodo Fz" },
+    { position: [0.5, 2.1, 0.6], name: "Nodo F3" },
+    { position: [-0.5, 2.1, 0.6], name: "Nodo F4" },
+    { position: [-0, 2.25, 0.6], name: "Nodo Fz" },
     { position: [0.35, 1.8, -1], name: "Nodo O1"},   
-    { position: [-0.35, 1.8, -1], name: "Nodo O2"}    
+    { position: [-0.35, 1.8, -1], name: "Nodo O2"} , 
+    { position: [0.4, 1.9, 1], name: "Nodo Fp1" },
+    { position: [-0.4, 1.9, 1], name: "Nodo Fp2" },
+    { position: [1.05, 1.6, 0], name: "Nodo T3"},
+    { position: [-1.05, 1.6, 0], name: "Nodo T4"}, 
+    { position: [-1, 1.6, -0.6], name: "Nodo T6"}, 
+    { position: [1, 1.6, -0.6], name: "Nodo T5"}, 
+    { position: [-0.9, 1.55, 0.6], name: "Nodo F8" },
+    { position: [0.9, 1.55, 0.6], name: "Nodo F7" },
 
+
+    
   ]);
 
   const [links] = useState<Link[]>([
@@ -47,32 +57,46 @@ export default function BrainModel() {
     { source: "Nodo F4", target: "Nodo C4" },
     { source: "Nodo F4", target: "Nodo Fz" },
     { source: "Nodo Fz", target: "Nodo F3" },
+    { source: "Nodo O1", target: "Nodo P3" },
+    { source: "Nodo O2", target: "Nodo P4" },
+    { source: "Nodo Fp1", target: "Nodo F3" },
+    { source: "Nodo Fp2", target: "Nodo F4" },
+    { source: "Nodo T4", target: "Nodo C4"}, 
+    { source: "Nodo T3", target: "Nodo C2"},
+    { source: "Nodo T5", target: "Nodo P3"}, 
+    { source: "Nodo T3", target: "Nodo T5"},
+    { source: "Nodo T4", target: "Nodo T6"}, 
+    { source: "Nodo T6", target: "Nodo P4"},
+    { source: "Nodo F7", target: "Nodo F3" },
+    { source: "Nodo F8", target: "Nodo F4" }, 
+    { source: "Nodo F8", target: "Nodo T4" }, 
+    { source: "Nodo F7", target: "Nodo T3" }
   ]);
 
   const [activeNode, setActiveNode] = useState<number | null>(null);
 
-  // Add new dynamic node on brain click
+  
 
-  // Get node vector by name
+  
   const getNodeVec = (name: string) => {
     const node = nodes.find(n => n.name === name);
     return node ? new THREE.Vector3(...node.position) : null;
   };
 
-  // Render links as cylinders for consistent thickness
+  
   const renderedLinks = useMemo(() => {
-    const thickness = 0.02; // adjust radius
+    const thickness = 0.02; 
     return links.map((link, idx) => {
       const start = getNodeVec(link.source);
       const end = getNodeVec(link.target);
       if (!start || !end) return null;
 
-      // midpoint
+      
       const mid = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5);
-      // direction vector
+      
       const dir = new THREE.Vector3().subVectors(end, start);
       const length = dir.length();
-      // align cylinder Y-axis to direction
+      
       const quaternion = new THREE.Quaternion().setFromUnitVectors(
         new THREE.Vector3(0, 1, 0),
         dir.clone().normalize()
@@ -118,13 +142,8 @@ export default function BrainModel() {
           {activeNode === idx && (
             <Html
               distanceFactor={8}
-              className="bg-foreground-400/15 backdrop-safari text-black dark:text-white font-extrabold"
+              className="bg-foreground-400/15 px-2 py-1 text-nowrap text-sm shadow-2xl border-1 rounded-xl dark:border-white border-black backdrop-safari text-black dark:text-white font-extrabold"
               style={{
-                padding: "5px 10px",
-                borderRadius: "8px",
-                whiteSpace: "nowrap",
-                fontSize: "12px",
-                boxShadow: "0 0 10px rgba(0,0,0,0.3)",
                 transform: "translate(-50%, -120%)",
               }}
             >

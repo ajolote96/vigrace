@@ -3,16 +3,33 @@ import BrainModel from "../../components/BrainModel";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Card, CardBody} from "@heroui/react";
+import { GlobalContext } from "../../providers/GlobalContext";
+import { useState, Suspense } from "react";
+import LoadingElement from "../../components/LoadingPage";
 export default function Dashboard(){
+    const [ambientLight, setAmbientLight] = useState<number>(1);    
+    const [downLight, setDownLight] = useState<number>(2);
+    const [upLight, setUpLight] = useState<number>(2);
     return (
         <div className="flex flex-row min-h-screen bg-background text-foreground overflow-hidden">
+            <GlobalContext.Provider value={{
+                ambientLight,
+                downLight,
+                upLight,
+                setAmbientLight,
+                setDownLight,
+                setUpLight
+            }}>
             <Sidebar >
             <main className="flex flex-col items-center justify-center w-full flex-1 h-[95vh]">
                 <div className="w-full h-full flex items-center justify-center">
                 <Canvas className="w-auto h-auto">
-                    <ambientLight intensity={0.5} />
-                    <directionalLight position={[10, 10, 5]} intensity={1} />
+                    <ambientLight intensity={ambientLight} />
+                    <directionalLight position={[10, 10, 10]} intensity={upLight} />
+                    <Suspense fallback={<LoadingElement />}>
                     <BrainModel />
+                    </Suspense>
+                    <directionalLight position={[0, -10, 0]} intensity={downLight} />
                     <OrbitControls />
                 </Canvas>
                 </div>
@@ -43,6 +60,7 @@ export default function Dashboard(){
                 </CardBody>
             </Card>
             </Sidebar>
+            </GlobalContext.Provider>
         </div>
     );
 }

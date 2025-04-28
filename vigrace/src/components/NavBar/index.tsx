@@ -10,21 +10,32 @@ import {
 import { FaPowerOff, FaPause as Pause } from "react-icons/fa6";
 import { FaCode, FaImage as Image } from "react-icons/fa";
 import { useTheme } from "@heroui/use-theme";
-import { IoPlaySkipBack as Back, IoPlaySkipForward as Next} from "react-icons/io5";
+import {
+    IoPlaySkipBack as Back,
+    IoPlaySkipForward as Next,
+} from "react-icons/io5";
 import { TbLayoutSidebarLeftCollapseFilled as Layout } from "react-icons/tb";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
-
-export default function Sidebar({children}: {children: ReactNode}) {
+import { useGlobalContext } from "../../providers/GlobalContext";
+import type { SliderValue } from "@heroui/react";
+export default function Sidebar({ children }: { children: ReactNode }) {
     const { theme, setTheme } = useTheme();
-    const [isOpen, setIsOpen] = useState<boolean>(true); 
+    const {
+        ambientLight,
+        downLight,
+        upLight,
+        setAmbientLight,
+        setDownLight,
+        setUpLight,
+    } = useGlobalContext();
+    const [isOpen, setIsOpen] = useState<boolean>(true);
 
     function handleToggle(): void {
-        setIsOpen((prev: boolean) => !prev); 
+        setIsOpen((prev: boolean) => !prev);
     }
 
-    
     const sidebarVariants: Variants = {
         open: {
             width: "16.6666667%",
@@ -35,10 +46,10 @@ export default function Sidebar({children}: {children: ReactNode}) {
             },
         },
         closed: {
-            display: "none", 
+            display: "none",
             width: 0,
         },
-    }
+    };
 
     const mainCotenntVarianst: Variants = {
         open: {
@@ -51,7 +62,7 @@ export default function Sidebar({children}: {children: ReactNode}) {
         closed: {
             width: "100%",
         },
-    }
+    };
 
     return (
         <div className="w-full flex flex-col max-h-screen">
@@ -59,7 +70,7 @@ export default function Sidebar({children}: {children: ReactNode}) {
                 <div className="flex flex-row gap-2 items-center">
                     <Tooltip content="Colapsar barra lateral">
                         <Button isIconOnly variant="flat" onPress={handleToggle}>
-                            <Layout aria-hidden className="focus:outline-none text-2xl"/>
+                            <Layout aria-hidden className="focus:outline-none text-2xl" />
                         </Button>
                     </Tooltip>
                     <h1 className="font-extrabold text-xl">Vigrace &bull; Playground</h1>
@@ -96,51 +107,81 @@ export default function Sidebar({children}: {children: ReactNode}) {
                 </div>
             </nav>
             <div className="flex flex-row w-full h-[94vh] bg-background text-foreground">
-            <motion.aside 
-            animate={isOpen ? "open" : "closed"}
-            variants={sidebarVariants}
-            data-open={isOpen}
-            className="flex border-r-1 overflow-hidden  dark:border-gray-800 border-gray-200 flex-col items-center min-h-[94vh] gap-4 justify-start px-3 w-1/6 bg-foreground-400/10  ">
-                <Select placeholder="Escoge un sujeto.">
-                    <SelectItem>Sujeto 0</SelectItem>
-                    <SelectItem>Sujeto 1</SelectItem>
-                    <SelectItem>Sujeto 2</SelectItem>
-                </Select>
-                <ButtonGroup className="mx-auto my-4">
-                    <Tooltip content="Pasar al cuadro anterior">
-                        <Button isIconOnly>
-                            <Back aria-hidden />
-                        </Button>
-                    </Tooltip>
-                    <Tooltip content="Pausar">
-                        <Button isIconOnly>
-                            <Pause aria-hidden />
-                        </Button>
-                    </Tooltip>
-                    <Tooltip content="Pasar al cuadro siguiente">
-                        <Button isIconOnly>
-                            <Next aria-hidden />
-                        </Button>
-                    </Tooltip>
-                </ButtonGroup>
-                <Slider
-                    label="Velocidad"
-                    showTooltip
-                    minValue={0}
-                    maxValue={1}
-                    step={0.1}
-                    showSteps
-                />
+                <motion.aside
+                    animate={isOpen ? "open" : "closed"}
+                    variants={sidebarVariants}
+                    data-open={isOpen}
+                    className="flex border-r-1 overflow-hidden  dark:border-gray-800 border-gray-200 flex-col items-center min-h-[94vh] gap-4 justify-start px-3 w-1/6 bg-foreground-400/10  "
+                >
+                    <Select placeholder="Escoge un sujeto.">
+                        <SelectItem>Sujeto 0</SelectItem>
+                        <SelectItem>Sujeto 1</SelectItem>
+                        <SelectItem>Sujeto 2</SelectItem>
+                    </Select>
+                    <ButtonGroup className="mx-auto my-4">
+                        <Tooltip content="Pasar al cuadro anterior">
+                            <Button isIconOnly>
+                                <Back aria-hidden />
+                            </Button>
+                        </Tooltip>
+                        <Tooltip content="Pausar">
+                            <Button isIconOnly>
+                                <Pause aria-hidden />
+                            </Button>
+                        </Tooltip>
+                        <Tooltip content="Pasar al cuadro siguiente">
+                            <Button isIconOnly>
+                                <Next aria-hidden />
+                            </Button>
+                        </Tooltip>
+                    </ButtonGroup>
+                    <Slider
+                        label="Velocidad"
+                        showTooltip
+                        minValue={0}
+                        maxValue={1}
+                        step={0.1}
+                        showSteps
+                    />
 
-                <Slider label="Cuadro actual" />
-            </motion.aside>
-            <motion.div variants={mainCotenntVarianst} 
-            animate={isOpen ? "open" : "closed"}
-            className="flex flex-col w-full h-full bg-background text-foreground">
-                {children}
-            </motion.div>
+                    <Slider label="Cuadro actual" />
+                    <Slider
+                        label="Intesidad de la luz ambiental"
+                        minValue={0.3}
+                        maxValue={1.5}
+                        step={0.1}
+                        color="secondary"
+                        onChange={(value: SliderValue) => setAmbientLight(value as number)}
+                        value={ambientLight}
+                        showTooltip
+                    />
+                    <Slider
+                        label="Intensidad de la luz superior"
+                        minValue={0.5}
+                        maxValue={2.5}
+                        step={0.1}
+                        value={upLight}
+                        onChange={(value: SliderValue) => setUpLight(value as number)}
+                        showTooltip
+                    />
+                    <Slider
+                        label="Intensidad de la luz inferior"
+                        minValue={0.5}
+                        maxValue={2.5}
+                        step={0.1}
+                        value={downLight}
+                        onChange={(value: SliderValue) => setDownLight(value as number)}
+                        showTooltip
+                    />
+                </motion.aside>
+                <motion.div
+                    variants={mainCotenntVarianst}
+                    animate={isOpen ? "open" : "closed"}
+                    className="flex flex-col w-full h-full bg-background text-foreground"
+                >
+                    {children}
+                </motion.div>
             </div>
         </div>
-
     );
 }
