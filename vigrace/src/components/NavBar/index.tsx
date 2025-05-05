@@ -5,66 +5,25 @@ import {
     SelectItem,
     Select,
     Divider,
-    addToast
 } from "@heroui/react";
 import { FaPowerOff } from "react-icons/fa6";
-import { FaCode, FaImage as Image } from "react-icons/fa";
+import { FaImage as Image } from "react-icons/fa";
 import { useTheme } from "@heroui/use-theme";
 import ReproductionSettings from "./ReproductionSettings";
 import { TbLayoutSidebarLeftCollapseFilled as Layout } from "react-icons/tb";
-import { useState, useRef } from "react";
+import { useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import useNavbarVariants from "./variants";
 import NodeSettings from "./NodeSettings";
 import FrameSettings from "./FrameSetttings";
-import { useGlobalContext } from "../../providers/GlobalContext";
-import { parse } from "papaparse";
-import type { Data } from "../../types/types";
-import type { ChangeEvent,  ReactNode } from "react";
-
+import LoadFile from "./LoadFile";
 
 export default function Sidebar({ children }: { children: ReactNode }) {
     const { theme, setTheme } = useTheme();
     const [isOpen, setIsOpen] = useState<boolean>(true);
     const [sidebarVariants, mainCotenntVarianst] = useNavbarVariants();
-    const inputRef = useRef<HTMLInputElement>(null);
     function handleToggle(): void {
         setIsOpen((prev: boolean) => !prev);
-    }
-    const { setData } = useGlobalContext(); 
-    
-    function handleFileChange(event: ChangeEvent<HTMLInputElement>): void {
-        const file = event.target?.files?.[0];
-        if (!file) {
-            addToast({
-                title: "Error",
-                description: "No se seleccionó ningún archivo.",
-                color: "danger",
-            });
-            return;
-        }
-        parse(file, {
-            header: true, 
-            skipEmptyLines: true,
-            transformHeader: (header: string) => header.toLowerCase(), 
-            complete: (results) => {
-                if (results.errors.length > 0) {
-                    addToast({
-                        title: "Error",
-                        description: "Error al leer el archivo.",
-                        color: "danger",
-                    });
-                    return;
-                }
-                setData(results.data as Data[]);
-                addToast({
-                    title: "Éxito",
-                    description: "Archivo cargado correctamente.",
-                    color: "success",
-                    shouldShowTimeoutProgress: true, 
-                });
-            }
-        })
     }
     
 
@@ -92,14 +51,7 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                     >
                         Cargar imagen.
                     </Button>
-                    <Button
-                        size="sm"
-                        startContent={<FaCode aria-hidden className="focus:outline-none" />}
-                        onPress={() => inputRef.current?.click()}
-                    >
-                        Cargar archivo.
-                    </Button>
-                    <input type="file" accept=".csv" hidden ref={inputRef} onChange={handleFileChange}/>
+                    <LoadFile />
                     <Button
                         variant="flat"
                         size="sm"
