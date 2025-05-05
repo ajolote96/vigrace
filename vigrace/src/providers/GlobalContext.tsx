@@ -1,20 +1,6 @@
 import { createContext, useContext } from "react";
-import type { SetStateAction, Dispatch } from "react";
+import type { GlobalContextProps } from "../types/types";
 
-interface GlobalContextProps {
-    ambientLight: number; 
-    downLight: number; 
-    upLight: number; 
-    showTooltips: boolean; 
-    onClickShowTooltips: boolean; 
-    showGlassEffect: boolean;
-    setShowGlassEffect: Dispatch<SetStateAction<boolean>>;
-    setAmbientLight: Dispatch<SetStateAction<number>>;
-    setDownLight: Dispatch<SetStateAction<number>>;
-    setUpLight: Dispatch<SetStateAction<number>>;
-    setShowTooltips: Dispatch<SetStateAction<boolean>>;
-    setOnClickShowTooltips: Dispatch<SetStateAction<boolean>>;
-}
 
 export const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);  
 

@@ -6,6 +6,9 @@ import { Card, CardBody} from "@heroui/react";
 import { GlobalContext } from "../../providers/GlobalContext";
 import { useState, Suspense } from "react";
 import LoadingElement from "../../components/LoadingPage";
+import type { Data } from "../../types/types";
+
+
 export default function Dashboard(){
     const [ambientLight, setAmbientLight] = useState<number>(1);    
     const [downLight, setDownLight] = useState<number>(2);
@@ -13,7 +16,7 @@ export default function Dashboard(){
     const [showTooltips, setShowTooltips] = useState<boolean>(false);
     const [onClickShowTooltips, setOnClickShowTooltips] = useState<boolean>(true);
     const [showGlassEffect, setShowGlassEffect] = useState<boolean>(true);
-    
+    const [data, setData] = useState<Data[]>([] as Data[]); 
     return (
         <div className="flex flex-row min-h-screen bg-background text-foreground overflow-hidden">
             <GlobalContext.Provider value={{
@@ -29,6 +32,8 @@ export default function Dashboard(){
                 setOnClickShowTooltips,
                 showGlassEffect,
                 setShowGlassEffect,
+                data,
+                setData
             }}>
             <Sidebar >
             <main className="flex flex-col items-center justify-center w-full flex-1 h-[95vh]">
