@@ -1,4 +1,5 @@
-import { Card, CardBody, Switch, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerFooter, Button, useDisclosure  } from "@heroui/react";
+import { Card, CardBody, Switch, Drawer, DrawerBody, DrawerContent, 
+    DrawerHeader, DrawerFooter, Button, useDisclosure, Checkbox, CheckboxGroup, CardHeader  } from "@heroui/react";
 import { useGlobalContext } from "../../../providers/GlobalContext";
 import { AiOutlineNodeIndex as Node } from "react-icons/ai";
 interface SectionProps {
@@ -34,12 +35,16 @@ export default function NodeSettings() {
         setOnClickShowTooltips,
         showGlassEffect, 
         setShowGlassEffect,
+        data, 
+        nodes, 
+        setNodes, 
     } = useGlobalContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
     function handleShowTooltips(): void {
         setShowTooltips((prev: boolean) => !prev);
     }
 
+    const allNodes = [...new Set(data.map((item) => item.electrode as string))]
     function handleOnClickShowTooltips(): void {
         setOnClickShowTooltips((prev: boolean) => !prev);
     }
@@ -81,8 +86,25 @@ export default function NodeSettings() {
                     {() => (
                         <>
                         <DrawerHeader>Ocultar o mostrar nodos.</DrawerHeader>
-                        <DrawerBody>
-
+                        <DrawerBody className="overflow-y-auto">
+                            <Card className="dark:border-gray-700 border-gray-200 border-1">
+                                <CardHeader>
+                                    <h2 className="font-extrabold text-lg">Nodos visibles.</h2>
+                                </CardHeader>
+                                <CardBody className=" flex flex-col items-start justify-center gap-2">
+                                    {allNodes.length === 0 ? (
+                                        <p className="text-neutral-400 w-full text-center">No hay nodos disponibles.</p>
+                                    ) : (
+                                        <CheckboxGroup onChange={setNodes} value={nodes.length > 0 ? nodes : allNodes}>
+                                            {allNodes.map((node) => (
+                                                <Checkbox key={node} value={node}>
+                                                    {node}
+                                                </Checkbox>
+                                            ))}
+                                        </CheckboxGroup>
+                                    )}
+                                </CardBody>
+                            </Card>
                         </DrawerBody>
                         <DrawerFooter>
                             <Button className="w-full" onPress={onClose}>

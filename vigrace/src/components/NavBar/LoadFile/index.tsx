@@ -20,6 +20,42 @@ export default function LoadFile() {
 
     function handleFileChange(event: ChangeEvent<HTMLInputElement>): void {
         const file = event.target.files?.[0];
+        if (!file) return; 
+        parse(file, {
+            header: true, 
+            skipEmptyLines: true, 
+            transformHeader: (header) => header.trim().toLowerCase(),
+            complete: (results) => {
+                const data = results.data as Data[];
+                if (data.length === 0) {
+                    addToast({
+                        title: "Error",
+                        description: "El archivo no contiene datos.",
+                        color: "danger",
+                    });
+                    return;
+                }
+                const requiredHeaders = ["electrode", "degree", "subject", "frequency"];
+                const missingHeaders = requiredHeaders.filter(
+                    (header) => !(header in data[0])
+                );
+                if (missingHeaders.length > 0) {
+                    addToast({
+                        title: "Error",
+                        description: `El archivo no contiene las siguientes cabeceras: ${missingHeaders.join(", ")}`,
+                        color: "danger",
+                    });
+                    return;
+                }
+                setData(data);
+                addToast({
+                    title: "Éxito",
+                    description: "El archivo se ha cargado correctamente.",
+                    color: "success",
+                });
+                setIsOpen(false);
+            }
+        }); 
     }
 
     return (

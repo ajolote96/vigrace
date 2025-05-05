@@ -18,7 +18,8 @@ export interface GlobalContextProps {
         electrode: string;
         degree: number; 
         [key: string]: string | number; 
-    }[]
+    }[]; 
+    nodes: string[]; 
     setShowGlassEffect: Dispatch<SetStateAction<boolean>>;
     setAmbientLight: Dispatch<SetStateAction<number>>;
     setDownLight: Dispatch<SetStateAction<number>>;
@@ -30,4 +31,5 @@ export interface GlobalContextProps {
         degree: number; 
         [key: string]: string | number; 
     }[]>>
+    setNodes: Dispatch<SetStateAction<string[]>>;
 }

@@ -15,6 +15,73 @@ type Link = {
   target: string;
 };
 
+const positions: Node[] = [
+  { position: [0, 2.35, 0], name: "Nodo Cz" },
+  { position: [0.6, 2.15, 0], name: "Nodo C2" },
+  { position: [-0.6, 2.15, 0], name: "Nodo C4" },
+  { position: [0.5, 2.1, -0.6], name: "Nodo P3" },
+  { position: [-0.5, 2.1, -0.6], name: "Nodo P4" },
+  { position: [0, 2.15, -0.7], name: "Nodo Pz" },
+  { position: [0.5, 2.1, 0.6], name: "Nodo F3" },
+  { position: [-0.5, 2.1, 0.6], name: "Nodo F4" },
+  { position: [-0, 2.25, 0.6], name: "Nodo Fz" },
+  { position: [0.35, 1.8, -1], name: "Nodo O1"},   
+  { position: [-0.35, 1.8, -1], name: "Nodo O2"} , 
+  { position: [0.4, 1.9, 1], name: "Nodo Fp1" },
+  { position: [-0.4, 1.9, 1], name: "Nodo Fp2" },
+  { position: [1.05, 1.6, 0], name: "Nodo T3"},
+  { position: [-1.05, 1.6, 0], name: "Nodo T4"}, 
+  { position: [-1, 1.6, -0.6], name: "Nodo T6"}, 
+  { position: [1, 1.6, -0.6], name: "Nodo T5"}, 
+  { position: [-0.9, 1.55, 0.6], name: "Nodo F8" },
+  { position: [0.9, 1.55, 0.6], name: "Nodo F7" },
+]
+
+function getNodePosition(name: string){
+  switch(name){
+    case "Cz": 
+      return [0, 2.35, 0];
+    case "C2":
+      return [0.6, 2.15, 0];
+    case "C4": 
+      return [-0.6, 2.15, 0];
+    case "P3": 
+      return [0.5, 2.1, -0.6];
+    case "P4":
+      return [-0.5, 2.1, -0.6];
+    case "Pz":
+      return [0, 2.15, -0.7];
+    case "F3":
+      return [0.5, 2.1, 0.6];
+    case "F4":
+      return [-0.5, 2.1, 0.6];
+    case "Fz":
+      return [0, 2.25, 0.6];
+    case "O1":
+      return [0.35, 1.8, -1];
+    case "O2":
+      return [-0.35, 1.8, -1];
+    case "Fp1":
+      return [0.4, 1.9, 1];
+    case "Fp2": 
+      return [-0.4, 1.9, 1];
+    case "T3":
+      return [1.05, 1.6, 0];
+    case "T4":
+      return [-1.05, 1.6, 0];
+    case "T6":
+      return [-1, 1.6, -0.6];
+    case "T5":
+      return [1, 1.6, -0.6];
+    case "F8":
+      return [-0.9, 1.55, 0.6];
+    case "F7":
+      return [0.9, 1.55, 0.6];
+    default:
+      return [0, 0, 0];
+  }
+}
+
 export default function BrainModel() {
   const model = useLoader(GLTFLoader, "/brain_project.glb");
   const brainRef = useRef<THREE.Group>(null);
@@ -41,9 +108,6 @@ export default function BrainModel() {
     { position: [1, 1.6, -0.6], name: "Nodo T5"}, 
     { position: [-0.9, 1.55, 0.6], name: "Nodo F8" },
     { position: [0.9, 1.55, 0.6], name: "Nodo F7" },
-
-
-    
   ]);
 
   const links: Link[] = [

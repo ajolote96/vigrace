@@ -17,6 +17,7 @@ import useNavbarVariants from "./variants";
 import NodeSettings from "./NodeSettings";
 import FrameSettings from "./FrameSetttings";
 import LoadFile from "./LoadFile";
+import ExperimentSettings from "./ExperimentSettings";
 
 export default function Sidebar({ children }: { children: ReactNode }) {
     const { theme, setTheme } = useTheme();
@@ -71,21 +72,7 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                     data-open={isOpen}
                     className="flex border-r-1 overflow-y-hidden  dark:border-gray-800 border-gray-200 flex-col items-center min-h-[94vh] gap-4 justify-start px-3 xl:max-w-1/6 max-w-1/5 bg-foreground-400/10  "
                 >
-                    <div className="flex flex-col items-start gap-2 justfiy-center w-full">
-                        <h3 className="font-semibold text-neutral-400 text-small">
-                            Ajustes del experimento.
-                        </h3>
-                        <Select placeholder="Escoge un sujeto.">
-                            <SelectItem>Sujeto 0</SelectItem>
-                            <SelectItem>Sujeto 1</SelectItem>
-                            <SelectItem>Sujeto 2</SelectItem>
-                        </Select>
-                        <Select placeholder="Tipo de gamma.">
-                            <SelectItem>Sujeto 0</SelectItem>
-                            <SelectItem>Sujeto 1</SelectItem>
-                            <SelectItem>Sujeto 2</SelectItem>
-                        </Select>
-                    </div>
+                    <ExperimentSettings />
                     <Divider />
                     <ReproductionSettings />
                     <Divider />
