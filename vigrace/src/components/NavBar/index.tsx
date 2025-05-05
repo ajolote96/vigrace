@@ -1,5 +1,4 @@
 import {
-    Slider,
     Button,
     ButtonGroup,
     Tooltip,
@@ -7,8 +6,6 @@ import {
     SelectItem,
     Select,
     Divider,
-    Card, 
-    CardBody
 } from "@heroui/react";
 import { FaPowerOff, FaPause as Pause } from "react-icons/fa6";
 import { FaCode, FaImage as Image } from "react-icons/fa";
@@ -20,65 +17,20 @@ import {
 import { TbLayoutSidebarLeftCollapseFilled as Layout } from "react-icons/tb";
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { motion, type Variants } from "framer-motion";
-import { useGlobalContext } from "../../providers/GlobalContext";
-import type { SliderValue } from "@heroui/react";
+import { motion } from "framer-motion";
+import useNavbarVariants from "./variants";
+import NodeSettings from "./NodeSettings";
+import FrameSettings from "./FrameSetttings";
 
 export default function Sidebar({ children }: { children: ReactNode }) {
     const { theme, setTheme } = useTheme();
-    const {
-        ambientLight,
-        downLight,
-        upLight,
-        setAmbientLight,
-        setDownLight,
-        setUpLight,
-        showTooltips,
-        setShowTooltips,
-        onClickShowTooltips,
-        setOnClickShowTooltips,
-    } = useGlobalContext();
     const [isOpen, setIsOpen] = useState<boolean>(true);
-
+    const [sidebarVariants, mainCotenntVarianst] = useNavbarVariants();
     function handleToggle(): void {
         setIsOpen((prev: boolean) => !prev);
     }
 
-    const sidebarVariants: Variants = {
-        open: {
-            width: "16.6666667%",
-            display: "flex",
-            transition: {
-                duration: 0.5,
-                ease: "easeInOut",
-            },
-        },
-        closed: {
-            display: "none",
-            width: 0,
-        },
-    };
 
-    const mainCotenntVarianst: Variants = {
-        open: {
-            width: "83.3333333%",
-            transition: {
-                duration: 0.5,
-                ease: "easeInOut",
-            },
-        },
-        closed: {
-            width: "100%",
-        },
-    };
-
-    function handleShowTooltips(): void {
-        setShowTooltips((prev: boolean) => !prev);
-    }
-
-    function handleOnClickShowTooltips(): void {
-        setOnClickShowTooltips((prev: boolean) => !prev);
-    }
 
     return (
         <div className="w-full flex flex-col max-h-screen">
@@ -127,7 +79,7 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                     animate={isOpen ? "open" : "closed"}
                     variants={sidebarVariants}
                     data-open={isOpen}
-                    className="flex border-r-1 overflow-hidden  dark:border-gray-800 border-gray-200 flex-col items-center min-h-[94vh] gap-4 justify-start px-3 xl:max-w-1/6 max-w-1/5 bg-foreground-400/10  "
+                    className="flex border-r-1 overflow-y-hidden  dark:border-gray-800 border-gray-200 flex-col items-center min-h-[94vh] gap-4 justify-start px-3 xl:max-w-1/6 max-w-1/5 bg-foreground-400/10  "
                 >
                     <Select placeholder="Escoge un sujeto.">
                         <SelectItem>Sujeto 0</SelectItem>
@@ -152,62 +104,9 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                         </Tooltip>
                     </ButtonGroup>
                     <Divider />
-                    <h2 className="font-semibold w-full text-start text-small text-neutral-400">
-                        Ajustes de cuadros.
-                    </h2>
-                    <Slider
-                        label="Velocidad"
-                        showTooltip
-                        minValue={0}
-                        maxValue={1}
-                        step={0.1}
-                        showSteps
-                    />
-
-                    <Slider label="Cuadro actual" />
-                    <Slider
-                        label="Intesidad de la luz ambiental"
-                        minValue={0.3}
-                        maxValue={1.5}
-                        step={0.1}
-                        color="secondary"
-                        onChange={(value: SliderValue) => setAmbientLight(value as number)}
-                        value={ambientLight}
-                        showTooltip
-                    />
-                    <Slider
-                        label="Intensidad de la luz superior"
-                        minValue={0.5}
-                        maxValue={2.5}
-                        step={0.1}
-                        value={upLight}
-                        onChange={(value: SliderValue) => setUpLight(value as number)}
-                        showTooltip
-                    />
-                    <Slider
-                        label="Intensidad de la luz inferior"
-                        minValue={0.5}
-                        maxValue={2.5}
-                        step={0.1}
-                        value={downLight}
-                        onChange={(value: SliderValue) => setDownLight(value as number)}
-                        showTooltip
-                    />
+                    <FrameSettings />
                     <Divider />
-                    <div className="flex flex-col items-start gap-2 justify-between w-full">
-                        <h2 className="font-semibold text-neutral-400 text-start w-full text-small">
-                            Ajustes de los nodos.
-                        </h2>
-                        <Switch isSelected={showTooltips} onChange={handleShowTooltips}>
-                            Mostrar nombre de los nodos.
-                        </Switch>
-                        <Switch
-                            isSelected={onClickShowTooltips}
-                            onChange={handleOnClickShowTooltips}
-                        >
-                            Información del nodo al hacer click.
-                        </Switch>
-                    </div>
+                    <NodeSettings />
                 </motion.aside>
                 <motion.div
                     variants={mainCotenntVarianst}
