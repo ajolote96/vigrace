@@ -7,6 +7,8 @@ interface GlobalContextProps {
     upLight: number; 
     showTooltips: boolean; 
     onClickShowTooltips: boolean; 
+    showGlassEffect: boolean;
+    setShowGlassEffect: Dispatch<SetStateAction<boolean>>;
     setAmbientLight: Dispatch<SetStateAction<number>>;
     setDownLight: Dispatch<SetStateAction<number>>;
     setUpLight: Dispatch<SetStateAction<number>>;

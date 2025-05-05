@@ -4,6 +4,7 @@ import { useRef, useState, useMemo } from "react";
 import * as THREE from "three";
 import { Html } from "@react-three/drei";
 import { useGlobalContext } from "../../providers/GlobalContext";
+import { cn } from "@heroui/react";
 type Node = {
   position: [number, number, number];
   name: string;
@@ -17,7 +18,7 @@ type Link = {
 export default function BrainModel() {
   const model = useLoader(GLTFLoader, "/brain_project.glb");
   const brainRef = useRef<THREE.Group>(null);
-  const { showTooltips, onClickShowTooltips } = useGlobalContext();
+  const { showTooltips, onClickShowTooltips, showGlassEffect } = useGlobalContext();
   useThree(); 
 
   const [nodes] = useState<Node[]>([
@@ -143,7 +144,10 @@ export default function BrainModel() {
           {((onClickShowTooltips && activeNode === idx) || showTooltips) && (
             <Html
               distanceFactor={8}
-              className="bg-foreground-400/15 px-2 py-1 text-nowrap text-sm shadow-2xl border-1 rounded-xl dark:border-white backdrop-safari border-black text-black dark:text-white font-extrabold"
+              className={cn(
+              "bg-foreground-400 px-2 py-1 text-nowrap text-sm shadow-2xl border-1 rounded-xl dark:border-white  border-black text-black dark:text-white font-extrabold", 
+              showGlassEffect && "backdrop-safari bg-foreground-400/15"
+              )}   
               style={{
                 transform: "translate(-50%, -120%)",
               }}

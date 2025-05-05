@@ -12,6 +12,8 @@ export default function Dashboard(){
     const [upLight, setUpLight] = useState<number>(2);
     const [showTooltips, setShowTooltips] = useState<boolean>(false);
     const [onClickShowTooltips, setOnClickShowTooltips] = useState<boolean>(true);
+    const [showGlassEffect, setShowGlassEffect] = useState<boolean>(true);
+    
     return (
         <div className="flex flex-row min-h-screen bg-background text-foreground overflow-hidden">
             <GlobalContext.Provider value={{
@@ -25,6 +27,8 @@ export default function Dashboard(){
                 setShowTooltips, 
                 onClickShowTooltips,
                 setOnClickShowTooltips,
+                showGlassEffect,
+                setShowGlassEffect,
             }}>
             <Sidebar >
             <main className="flex flex-col items-center justify-center w-full flex-1 h-[95vh]">

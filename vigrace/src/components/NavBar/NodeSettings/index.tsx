@@ -32,6 +32,8 @@ export default function NodeSettings() {
         setShowTooltips,
         onClickShowTooltips,
         setOnClickShowTooltips,
+        showGlassEffect, 
+        setShowGlassEffect,
     } = useGlobalContext();
     function handleShowTooltips(): void {
         setShowTooltips((prev: boolean) => !prev);
@@ -39,6 +41,10 @@ export default function NodeSettings() {
 
     function handleOnClickShowTooltips(): void {
         setOnClickShowTooltips((prev: boolean) => !prev);
+    }
+
+    function handleShowGlassEffect(): void {
+        setShowGlassEffect((prev: boolean) => !prev);
     }
     return (
         <div className="flex flex-col items-start gap-2 justify-between w-full">
@@ -56,6 +62,12 @@ export default function NodeSettings() {
                 description="Permite que al hacer click en un nodo de muestra su nombre."
                 value={onClickShowTooltips}
                 onChange={handleOnClickShowTooltips}
+            />
+            <Section 
+                title="Efecto de desenfoque."
+                description="Muestra un efecto traslucido en los nodos. Deshabilitarlo puede mejorar el rendimiento."
+                value={showGlassEffect}
+                onChange={handleShowGlassEffect}
             />
         </div>
     );
