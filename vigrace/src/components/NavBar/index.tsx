@@ -81,12 +81,21 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                     data-open={isOpen}
                     className="flex border-r-1 overflow-y-hidden  dark:border-gray-800 border-gray-200 flex-col items-center min-h-[94vh] gap-4 justify-start px-3 xl:max-w-1/6 max-w-1/5 bg-foreground-400/10  "
                 >
+                    <div className="flex flex-col items-start gap-1 justfiy-center w-full">
+                    <h2 className="font-semibold text-neutral-400">Ajustes del experimento.</h2>
                     <Select placeholder="Escoge un sujeto.">
                         <SelectItem>Sujeto 0</SelectItem>
                         <SelectItem>Sujeto 1</SelectItem>
                         <SelectItem>Sujeto 2</SelectItem>
                     </Select>
-                    <ButtonGroup className="mx-auto my-4 ">
+                    <Select placeholder="Tipo de gamma.">
+                        <SelectItem>Sujeto 0</SelectItem>
+                        <SelectItem>Sujeto 1</SelectItem>
+                        <SelectItem>Sujeto 2</SelectItem>
+                    </Select>
+                    </div>
+                    <Divider />
+                    <ButtonGroup className="mx-auto my-2" >
                         <Tooltip content="Pasar al cuadro anterior">
                             <Button isIconOnly>
                                 <Back aria-hidden />

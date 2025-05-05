@@ -46,7 +46,7 @@ export default function BrainModel() {
     
   ]);
 
-  const [links] = useState<Link[]>([
+  const links: Link[] = [
     { source: "Nodo Cz", target: "Nodo C2" },
     { source: "Nodo Cz", target: "Nodo C4" },
     { source: "Nodo C2", target: "Nodo P3" },
@@ -73,7 +73,7 @@ export default function BrainModel() {
     { source: "Nodo F8", target: "Nodo F4" }, 
     { source: "Nodo F8", target: "Nodo T4" }, 
     { source: "Nodo F7", target: "Nodo T3" }
-  ]);
+  ];
 
   const [activeNode, setActiveNode] = useState<number | null>(null);
 

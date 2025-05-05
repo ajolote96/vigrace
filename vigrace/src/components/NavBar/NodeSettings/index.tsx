@@ -1,6 +1,6 @@
-import { Card, CardBody, Switch, Divider } from "@heroui/react";
+import { Card, CardBody, Switch, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerFooter, Button, useDisclosure  } from "@heroui/react";
 import { useGlobalContext } from "../../../providers/GlobalContext";
-
+import { AiOutlineNodeIndex as Node } from "react-icons/ai";
 interface SectionProps {
     title: string;
     description?: string;
@@ -35,6 +35,7 @@ export default function NodeSettings() {
         showGlassEffect, 
         setShowGlassEffect,
     } = useGlobalContext();
+    const { isOpen, onOpen, onClose } = useDisclosure();
     function handleShowTooltips(): void {
         setShowTooltips((prev: boolean) => !prev);
     }
@@ -69,6 +70,29 @@ export default function NodeSettings() {
                 value={showGlassEffect}
                 onChange={handleShowGlassEffect}
             />
+            <Button className="w-full" variant="flat" 
+            startContent={<Node aria-hidden className="focus:outline-none" />}
+            onPress={onOpen}
+            >
+                Ocultar/Mostrar nodos.
+            </Button>
+            <Drawer isOpen={isOpen} onClose={onClose} size="xs">
+                <DrawerContent>
+                    {() => (
+                        <>
+                        <DrawerHeader>Ocultar o mostrar nodos.</DrawerHeader>
+                        <DrawerBody>
+
+                        </DrawerBody>
+                        <DrawerFooter>
+                            <Button className="w-full" onPress={onClose}>
+                                Guardar cambios.
+                            </Button>
+                        </DrawerFooter>
+                        </>
+                    )}
+                </DrawerContent>
+            </Drawer>
         </div>
     );
 }
