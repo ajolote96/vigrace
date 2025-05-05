@@ -43,6 +43,7 @@ export default function Homepage() {
                             isRequired
                             variant="bordered"
                             name="user"
+                            autoFocus
                         />
                         <Input
                             label="Contraseña"

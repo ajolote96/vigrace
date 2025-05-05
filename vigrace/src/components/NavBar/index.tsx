@@ -6,6 +6,9 @@ import {
     Switch,
     SelectItem,
     Select,
+    Divider,
+    Card, 
+    CardBody
 } from "@heroui/react";
 import { FaPowerOff, FaPause as Pause } from "react-icons/fa6";
 import { FaCode, FaImage as Image } from "react-icons/fa";
@@ -20,6 +23,7 @@ import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { useGlobalContext } from "../../providers/GlobalContext";
 import type { SliderValue } from "@heroui/react";
+
 export default function Sidebar({ children }: { children: ReactNode }) {
     const { theme, setTheme } = useTheme();
     const {
@@ -29,6 +33,10 @@ export default function Sidebar({ children }: { children: ReactNode }) {
         setAmbientLight,
         setDownLight,
         setUpLight,
+        showTooltips,
+        setShowTooltips,
+        onClickShowTooltips,
+        setOnClickShowTooltips,
     } = useGlobalContext();
     const [isOpen, setIsOpen] = useState<boolean>(true);
 
@@ -63,6 +71,14 @@ export default function Sidebar({ children }: { children: ReactNode }) {
             width: "100%",
         },
     };
+
+    function handleShowTooltips(): void {
+        setShowTooltips((prev: boolean) => !prev);
+    }
+
+    function handleOnClickShowTooltips(): void {
+        setOnClickShowTooltips((prev: boolean) => !prev);
+    }
 
     return (
         <div className="w-full flex flex-col max-h-screen">
@@ -111,14 +127,14 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                     animate={isOpen ? "open" : "closed"}
                     variants={sidebarVariants}
                     data-open={isOpen}
-                    className="flex border-r-1 overflow-hidden  dark:border-gray-800 border-gray-200 flex-col items-center min-h-[94vh] gap-4 justify-start px-3 w-1/6 bg-foreground-400/10  "
+                    className="flex border-r-1 overflow-hidden  dark:border-gray-800 border-gray-200 flex-col items-center min-h-[94vh] gap-4 justify-start px-3 xl:max-w-1/6 max-w-1/5 bg-foreground-400/10  "
                 >
                     <Select placeholder="Escoge un sujeto.">
                         <SelectItem>Sujeto 0</SelectItem>
                         <SelectItem>Sujeto 1</SelectItem>
                         <SelectItem>Sujeto 2</SelectItem>
                     </Select>
-                    <ButtonGroup className="mx-auto my-4">
+                    <ButtonGroup className="mx-auto my-4 ">
                         <Tooltip content="Pasar al cuadro anterior">
                             <Button isIconOnly>
                                 <Back aria-hidden />
@@ -135,6 +151,10 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                             </Button>
                         </Tooltip>
                     </ButtonGroup>
+                    <Divider />
+                    <h2 className="font-semibold w-full text-start text-small text-neutral-400">
+                        Ajustes de cuadros.
+                    </h2>
                     <Slider
                         label="Velocidad"
                         showTooltip
@@ -173,6 +193,21 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                         onChange={(value: SliderValue) => setDownLight(value as number)}
                         showTooltip
                     />
+                    <Divider />
+                    <div className="flex flex-col items-start gap-2 justify-between w-full">
+                        <h2 className="font-semibold text-neutral-400 text-start w-full text-small">
+                            Ajustes de los nodos.
+                        </h2>
+                        <Switch isSelected={showTooltips} onChange={handleShowTooltips}>
+                            Mostrar nombre de los nodos.
+                        </Switch>
+                        <Switch
+                            isSelected={onClickShowTooltips}
+                            onChange={handleOnClickShowTooltips}
+                        >
+                            Información del nodo al hacer click.
+                        </Switch>
+                    </div>
                 </motion.aside>
                 <motion.div
                     variants={mainCotenntVarianst}

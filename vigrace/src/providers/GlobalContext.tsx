@@ -5,9 +5,13 @@ interface GlobalContextProps {
     ambientLight: number; 
     downLight: number; 
     upLight: number; 
+    showTooltips: boolean; 
+    onClickShowTooltips: boolean; 
     setAmbientLight: Dispatch<SetStateAction<number>>;
     setDownLight: Dispatch<SetStateAction<number>>;
     setUpLight: Dispatch<SetStateAction<number>>;
+    setShowTooltips: Dispatch<SetStateAction<boolean>>;
+    setOnClickShowTooltips: Dispatch<SetStateAction<boolean>>;
 }
 
 export const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);  

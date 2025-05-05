@@ -3,7 +3,7 @@ import { GLTFLoader } from "three/examples/jsm/Addons.js";
 import { useRef, useState, useMemo } from "react";
 import * as THREE from "three";
 import { Html } from "@react-three/drei";
-
+import { useGlobalContext } from "../../providers/GlobalContext";
 type Node = {
   position: [number, number, number];
   name: string;
@@ -17,6 +17,7 @@ type Link = {
 export default function BrainModel() {
   const model = useLoader(GLTFLoader, "/brain_project.glb");
   const brainRef = useRef<THREE.Group>(null);
+  const { showTooltips, onClickShowTooltips } = useGlobalContext();
   useThree(); 
 
   const [nodes] = useState<Node[]>([
@@ -139,10 +140,10 @@ export default function BrainModel() {
             <sphereGeometry args={[0.1, 16, 16]} />
             <meshStandardMaterial color="lightgray" />
           </mesh>
-          {activeNode === idx && (
+          {((onClickShowTooltips && activeNode === idx) || showTooltips) && (
             <Html
               distanceFactor={8}
-              className="bg-foreground-400/15 px-2 py-1 text-nowrap text-sm shadow-2xl border-1 rounded-xl dark:border-white border-black backdrop-safari text-black dark:text-white font-extrabold"
+              className="bg-foreground-400/15 px-2 py-1 text-nowrap text-sm shadow-2xl border-1 rounded-xl dark:border-white backdrop-safari border-black text-black dark:text-white font-extrabold"
               style={{
                 transform: "translate(-50%, -120%)",
               }}
@@ -153,7 +154,6 @@ export default function BrainModel() {
         </group>
       ))}
 
-      {/* Render cylinder links */}
       {renderedLinks}
     </group>
   );

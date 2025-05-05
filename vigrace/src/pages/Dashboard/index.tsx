@@ -10,6 +10,8 @@ export default function Dashboard(){
     const [ambientLight, setAmbientLight] = useState<number>(1);    
     const [downLight, setDownLight] = useState<number>(2);
     const [upLight, setUpLight] = useState<number>(2);
+    const [showTooltips, setShowTooltips] = useState<boolean>(false);
+    const [onClickShowTooltips, setOnClickShowTooltips] = useState<boolean>(true);
     return (
         <div className="flex flex-row min-h-screen bg-background text-foreground overflow-hidden">
             <GlobalContext.Provider value={{
@@ -18,7 +20,11 @@ export default function Dashboard(){
                 upLight,
                 setAmbientLight,
                 setDownLight,
-                setUpLight
+                setUpLight,
+                showTooltips,
+                setShowTooltips, 
+                onClickShowTooltips,
+                setOnClickShowTooltips,
             }}>
             <Sidebar >
             <main className="flex flex-col items-center justify-center w-full flex-1 h-[95vh]">
