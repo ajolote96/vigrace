@@ -16,3 +16,12 @@ svg:focus {
   backdrop-filter: blur(10px);
   --webkit-backdrop-filter: blur(10px);
 }
+
+.scroll-container {
+  @apply overflow-y-auto; 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

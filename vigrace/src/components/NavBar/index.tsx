@@ -2,8 +2,6 @@ import {
     Button,
     Tooltip,
     Switch,
-    SelectItem,
-    Select,
     Divider,
 } from "@heroui/react";
 import { FaPowerOff } from "react-icons/fa6";
@@ -70,7 +68,7 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                     animate={isOpen ? "open" : "closed"}
                     variants={sidebarVariants}
                     data-open={isOpen}
-                    className="flex border-r-1 overflow-y-hidden  dark:border-gray-800 border-gray-200 flex-col items-center min-h-[94vh] gap-4 justify-start px-3 xl:max-w-1/6 max-w-1/5 bg-foreground-400/10  "
+                    className="flex border-r-1 scroll-container  dark:border-gray-800 border-gray-200 flex-col items-center min-h-[94vh] gap-4 justify-start px-3 xl:max-w-1/6 max-w-1/5 bg-foreground-400/10  "
                 >
                     <ExperimentSettings />
                     <Divider />

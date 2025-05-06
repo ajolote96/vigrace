@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { Html } from "@react-three/drei";
 import { useGlobalContext } from "../../providers/GlobalContext";
 import { cn } from "@heroui/react";
+
 type Node = {
   position: [number, number, number];
   name: string;
@@ -15,27 +16,6 @@ type Link = {
   target: string;
 };
 
-const positions: Node[] = [
-  { position: [0, 2.35, 0], name: "Nodo Cz" },
-  { position: [0.6, 2.15, 0], name: "Nodo C2" },
-  { position: [-0.6, 2.15, 0], name: "Nodo C4" },
-  { position: [0.5, 2.1, -0.6], name: "Nodo P3" },
-  { position: [-0.5, 2.1, -0.6], name: "Nodo P4" },
-  { position: [0, 2.15, -0.7], name: "Nodo Pz" },
-  { position: [0.5, 2.1, 0.6], name: "Nodo F3" },
-  { position: [-0.5, 2.1, 0.6], name: "Nodo F4" },
-  { position: [-0, 2.25, 0.6], name: "Nodo Fz" },
-  { position: [0.35, 1.8, -1], name: "Nodo O1"},   
-  { position: [-0.35, 1.8, -1], name: "Nodo O2"} , 
-  { position: [0.4, 1.9, 1], name: "Nodo Fp1" },
-  { position: [-0.4, 1.9, 1], name: "Nodo Fp2" },
-  { position: [1.05, 1.6, 0], name: "Nodo T3"},
-  { position: [-1.05, 1.6, 0], name: "Nodo T4"}, 
-  { position: [-1, 1.6, -0.6], name: "Nodo T6"}, 
-  { position: [1, 1.6, -0.6], name: "Nodo T5"}, 
-  { position: [-0.9, 1.55, 0.6], name: "Nodo F8" },
-  { position: [0.9, 1.55, 0.6], name: "Nodo F7" },
-]
 
 function getNodePosition(name: string){
   switch(name){
@@ -85,7 +65,7 @@ function getNodePosition(name: string){
 export default function BrainModel() {
   const model = useLoader(GLTFLoader, "/brain_project.glb");
   const brainRef = useRef<THREE.Group>(null);
-  const { showTooltips, onClickShowTooltips, showGlassEffect } = useGlobalContext();
+  const { showTooltips, onClickShowTooltips, showGlassEffect, data, nodes: visibleNodes } = useGlobalContext();
   useThree(); 
 
   const [nodes] = useState<Node[]>([
@@ -148,6 +128,11 @@ export default function BrainModel() {
     const node = nodes.find(n => n.name === name);
     return node ? new THREE.Vector3(...node.position) : null;
   };
+
+  const currentNodes = useMemo(() => {
+    if (visibleNodes.length === 0) return nodes; 
+    return data.filter(node => visibleNodes.includes(node.electrode));
+  }, [data, visibleNodes]);
 
   
   const renderedLinks = useMemo(() => {
