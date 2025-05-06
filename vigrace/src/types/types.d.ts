@@ -19,6 +19,7 @@ export interface GlobalContextProps {
         degree: number; 
         [key: string]: string | number; 
     }[]; 
+    subject: string; 
     nodes: string[]; 
     setShowGlassEffect: Dispatch<SetStateAction<boolean>>;
     setAmbientLight: Dispatch<SetStateAction<number>>;
@@ -32,4 +33,5 @@ export interface GlobalContextProps {
         [key: string]: string | number; 
     }[]>>
     setNodes: Dispatch<SetStateAction<string[]>>;
+    setSubject: Dispatch<SetStateAction<string>>;
 }
