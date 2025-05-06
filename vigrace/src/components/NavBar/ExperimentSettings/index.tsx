@@ -1,8 +1,9 @@
 import { useGlobalContext } from "../../../providers/GlobalContext";
 import { Select, SelectItem} from "@heroui/react";
-import {useState, useEffect} from "react";
+import {useState, useEffect, type ChangeEvent} from "react";
+
 export default function ExperimentSettings(){
-    const { data } = useGlobalContext();
+    const { data, setSubject } = useGlobalContext();
     const subjects: string[] = [...new Set(data.map((item) => item.subject as string))];
     const gammaTypes: string[] = [...new Set(data.map((item) => item.frequency as string))];
     const stages: string[] = [...new Set(data.map((item) => item.stages as string))];
@@ -29,7 +30,10 @@ export default function ExperimentSettings(){
         <h3 className="font-semibold text-neutral-400 text-small">
             Ajustes del experimento.
         </h3>
-        <Select placeholder="Escoge un sujeto." selectedKeys={[selectedKeys.first]} >
+        <Select placeholder="Escoge un sujeto." selectedKeys={[selectedKeys.first]} onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+            setSubject(event.target.value);
+            setSelectedKeys((prev) => ({ ...prev, first: event.target.value }));
+        }} >
             {subjects.map((subject) => (
                 <SelectItem key={subject} textValue={subject}>
                     {subject}

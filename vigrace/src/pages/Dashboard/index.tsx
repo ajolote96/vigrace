@@ -19,6 +19,7 @@ export default function Dashboard(){
     const [data, setData] = useState<Data[]>([] as Data[]); 
     const [nodes, setNodes] = useState<string[]>([] as string[]);
     const [subject, setSubject] = useState<string>("");
+    const [currentIndex, setCurrentIndex] = useState<number>(0);
     return (
         <div className="flex flex-row min-h-screen bg-background text-foreground overflow-hidden">
             <GlobalContext.Provider value={{
@@ -40,6 +41,8 @@ export default function Dashboard(){
                 setNodes,
                 subject,
                 setSubject,
+                currentIndex,
+                setCurrentIndex,
             }}>
             <Sidebar >
             <main className="flex flex-col items-center justify-center w-full flex-1 h-[95vh]">

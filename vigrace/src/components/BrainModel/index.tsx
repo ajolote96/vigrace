@@ -1,11 +1,10 @@
-import { useLoader, useThree } from "@react-three/fiber";
+import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/Addons.js";
 import { useRef, useState, useMemo } from "react";
 import * as THREE from "three";
 import { Html } from "@react-three/drei";
 import { useGlobalContext } from "../../providers/GlobalContext";
 import { cn } from "@heroui/react";
-
 type Node = {
   position: [number, number, number];
   name: string;
@@ -62,11 +61,18 @@ function getNodePosition(name: string){
   }
 }
 
+function splitArray<T>(array: T[], chunkSize: number): T[][]{
+  const result: T[][] = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+    result.push(array.slice(i, i + chunkSize));
+  }
+  return result;
+}
+
 export default function BrainModel() {
   const model = useLoader(GLTFLoader, "/brain_project.glb");
   const brainRef = useRef<THREE.Group>(null);
-  const { showTooltips, onClickShowTooltips, showGlassEffect, data, nodes: visibleNodes } = useGlobalContext();
-  useThree(); 
+  const { showTooltips, onClickShowTooltips, showGlassEffect, data, nodes: visibleNodes, currentIndex } = useGlobalContext();
 
   const [nodes] = useState<Node[]>([
     { position: [0, 2.35, 0], name: "Nodo Cz" },
@@ -162,7 +168,14 @@ export default function BrainModel() {
     });
   }, [nodes, links]);
 
-  return (
+  return data.length === 0 ? (
+    <Html center>
+    <div className="flex flex-col items-center justify-center w-[500px] font-sans h-full">
+      <h1 className="font-extrabold text-3xl">No has cargado información aún</h1>
+      <p className="font-semibold text-center">Empieza subiendo un archivo desde la barra de navegación.</p>
+    </div>
+    </Html>
+  ) :  (
     <group ref={brainRef}>
       <primitive
         object={model.scene}

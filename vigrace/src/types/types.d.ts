@@ -21,6 +21,7 @@ export interface GlobalContextProps {
     }[]; 
     subject: string; 
     nodes: string[]; 
+    currentIndex: number; 
     setShowGlassEffect: Dispatch<SetStateAction<boolean>>;
     setAmbientLight: Dispatch<SetStateAction<number>>;
     setDownLight: Dispatch<SetStateAction<number>>;
@@ -34,4 +35,5 @@ export interface GlobalContextProps {
     }[]>>
     setNodes: Dispatch<SetStateAction<string[]>>;
     setSubject: Dispatch<SetStateAction<string>>;
+    setCurrentIndex: Dispatch<SetStateAction<number>>;
 }
