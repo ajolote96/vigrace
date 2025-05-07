@@ -24,6 +24,7 @@ export interface GlobalContextProps {
     currentIndex: number; 
     frequency: string; 
     stage: string; 
+    showNodeValue: boolean; 
     setShowGlassEffect: Dispatch<SetStateAction<boolean>>;
     setAmbientLight: Dispatch<SetStateAction<number>>;
     setDownLight: Dispatch<SetStateAction<number>>;
@@ -40,4 +41,5 @@ export interface GlobalContextProps {
     setCurrentIndex: Dispatch<SetStateAction<number>>;
     setFrequency: Dispatch<SetStateAction<string>>;
     setStage: Dispatch<SetStateAction<string>>;
+    setShowNodeValue: Dispatch<SetStateAction<boolean>>;
 }

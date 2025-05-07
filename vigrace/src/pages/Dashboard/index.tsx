@@ -22,6 +22,7 @@ export default function Dashboard(){
     const [frequency, setFrequency] = useState<string>("");
     const [stage, setStage] = useState<string>("");
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [showNodeValue, setShowNodeValue] = useState<boolean>(true);
     return (
         <div className="flex flex-row min-h-screen bg-background text-foreground overflow-hidden">
             <GlobalContext.Provider value={{
@@ -48,7 +49,9 @@ export default function Dashboard(){
                 frequency,
                 setFrequency,
                 stage,
-                setStage
+                setStage, 
+                showNodeValue, 
+                setShowNodeValue, 
             }}>
             <Sidebar >
             <main className="flex flex-col items-center justify-center w-full flex-1 h-[95vh]">

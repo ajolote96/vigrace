@@ -38,6 +38,8 @@ export default function NodeSettings() {
         data, 
         nodes, 
         setNodes, 
+        setShowNodeValue, 
+        showNodeValue, 
     } = useGlobalContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
     function handleShowTooltips(): void {
@@ -51,6 +53,10 @@ export default function NodeSettings() {
 
     function handleShowGlassEffect(): void {
         setShowGlassEffect((prev: boolean) => !prev);
+    }
+    
+    function handleShowNodeValue(): void {
+        setShowNodeValue((prev: boolean) => !prev);
     }
     return (
         <div className="flex flex-col items-start gap-2 justify-between w-full">
@@ -74,6 +80,12 @@ export default function NodeSettings() {
                 description="Muestra un efecto traslucido en los nodos. Deshabilitarlo puede mejorar el rendimiento."
                 value={showGlassEffect}
                 onChange={handleShowGlassEffect}
+            />
+            <Section 
+            title="Mostrar los valores del nodo."
+            description="Muestra el valor del nodo en el tooltip. "
+            value={showNodeValue}
+            onChange={handleShowNodeValue}
             />
             <Button className="w-full" variant="flat" 
             startContent={<Node aria-hidden className="focus:outline-none" />}
