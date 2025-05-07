@@ -147,7 +147,7 @@ export default function BrainModel() {
             <Html
               distanceFactor={8}
               className={cn(
-                "bg-foreground-400 px-2 py-1 text-nowrap text-sm shadow-2xl border-1 rounded-xl dark:border-white  border-black text-black dark:text-white font-extrabold",
+                "bg-foreground-400 px-2 py-1 text-nowrap text-sm shadow-2xl border-1 rounded-lg dark:border-white  border-black text-black dark:text-white font-extrabold",
                 showGlassEffect && "backdrop-safari bg-foreground-400/15"
               )}
               style={{
