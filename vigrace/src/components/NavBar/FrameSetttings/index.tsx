@@ -1,6 +1,6 @@
-import { Slider, type SliderValue } from "@heroui/react";
+import { Slider, type SliderValue, Tooltip } from "@heroui/react";
 import { useGlobalContext } from "../../../providers/GlobalContext";
-
+import type { ChangeEvent, KeyboardEvent } from "react";
 
 export default function FrameSettings(){
     const { ambientLight, setAmbientLight, upLight, setUpLight, downLight, setDownLight } = useGlobalContext();
@@ -37,6 +37,21 @@ export default function FrameSettings(){
                         onChange={handleAmbientLight}
                         value={ambientLight}
                         showTooltip
+                        renderValue={({children, ...props}) => (
+                            <output {...props}>
+                              <Tooltip
+                                className="text-tiny text-default-500 rounded-md"
+                                content="Presiona enter para cambiar el cuadro"
+                                placement="left"
+                              >
+                                <input
+                                  aria-label="Cuadro actual"
+                                  className="px-1 py-0.5 w-12 text-right text-small text-default-700 font-medium bg-default-100 outline-none transition-colors rounded-small border-medium border-transparent hover:border-primary focus:border-primary"
+                                  type="text"
+                                />
+                              </Tooltip>
+                            </output>
+                          )}
                     />
                     <Slider
                         label="Intensidad de la luz superior"

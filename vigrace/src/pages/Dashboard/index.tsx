@@ -19,6 +19,8 @@ export default function Dashboard(){
     const [data, setData] = useState<Data[]>([] as Data[]); 
     const [nodes, setNodes] = useState<string[]>([] as string[]);
     const [subject, setSubject] = useState<string>("");
+    const [frequency, setFrequency] = useState<string>("");
+    const [stage, setStage] = useState<string>("");
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     return (
         <div className="flex flex-row min-h-screen bg-background text-foreground overflow-hidden">
@@ -43,6 +45,10 @@ export default function Dashboard(){
                 setSubject,
                 currentIndex,
                 setCurrentIndex,
+                frequency,
+                setFrequency,
+                stage,
+                setStage
             }}>
             <Sidebar >
             <main className="flex flex-col items-center justify-center w-full flex-1 h-[95vh]">

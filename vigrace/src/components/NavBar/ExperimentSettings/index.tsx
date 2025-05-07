@@ -3,7 +3,7 @@ import { Select, SelectItem} from "@heroui/react";
 import {useState, useEffect, type ChangeEvent} from "react";
 
 export default function ExperimentSettings(){
-    const { data, setSubject } = useGlobalContext();
+    const { data, setSubject, setFrequency, setStage } = useGlobalContext();
     const subjects: string[] = [...new Set(data.map((item) => item.subject as string))];
     const gammaTypes: string[] = [...new Set(data.map((item) => item.frequency as string))];
     const stages: string[] = [...new Set(data.map((item) => item.stages as string))];
@@ -25,29 +25,44 @@ export default function ExperimentSettings(){
         }
     }, [data]); 
 
+    function handleSubjectChange(event: ChangeEvent<HTMLSelectElement>): void {
+        const selectedSubject = event.target.value;
+        setSubject(selectedSubject);
+        setSelectedKeys((prev) => ({ ...prev, first: selectedSubject }));
+    }
+
+    function handleGammaTypeChange(event: ChangeEvent<HTMLSelectElement>): void {
+        const selectedGammaType = event.target.value;
+        setFrequency(selectedGammaType);
+        setSelectedKeys((prev) => ({ ...prev, second: selectedGammaType }));
+    }
+
+    function handleStageChange(event: ChangeEvent<HTMLSelectElement>): void {
+        const selectedStage = event.target.value;
+        setStage(selectedStage);
+        setSelectedKeys((prev) => ({ ...prev, thrid: selectedStage }));
+    }
+
     return ( 
         <div className="flex flex-col items-start gap-2 justify-center w-full">
         <h3 className="font-semibold text-neutral-400 text-small">
             Ajustes del experimento.
         </h3>
-        <Select placeholder="Escoge un sujeto." selectedKeys={[selectedKeys.first]} onChange={(event: ChangeEvent<HTMLSelectElement>) => {
-            setSubject(event.target.value);
-            setSelectedKeys((prev) => ({ ...prev, first: event.target.value }));
-        }} >
+        <Select placeholder="Escoge un sujeto." selectedKeys={[selectedKeys.first]} onChange={handleSubjectChange} >
             {subjects.map((subject) => (
                 <SelectItem key={subject} textValue={subject}>
                     {subject}
                 </SelectItem>
             ))}
         </Select>
-        <Select placeholder="Tipo de gamma." selectedKeys={[selectedKeys.second]}>
+        <Select placeholder="Tipo de gamma." selectedKeys={[selectedKeys.second]} onChange={handleGammaTypeChange}>
             {gammaTypes.map((gammaType) => (
                 <SelectItem key={gammaType} textValue={gammaType}>
                     {gammaType}
                 </SelectItem>
             ))}
         </Select>
-        <Select placeholder="Etapa del experimento." selectedKeys={[selectedKeys.thrid]}>
+        <Select placeholder="Etapa del experimento." selectedKeys={[selectedKeys.thrid]} onChange={handleStageChange}>
             {stages.map((stage) => (
                 <SelectItem key={stage} textValue={stage}>
                     {stage}
