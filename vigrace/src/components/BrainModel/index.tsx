@@ -135,12 +135,6 @@ export default function BrainModel() {
     return node ? new THREE.Vector3(...node.position) : null;
   };
 
-  const currentNodes = useMemo(() => {
-    if (visibleNodes.length === 0) return nodes; 
-    return data.filter(node => visibleNodes.includes(node.electrode));
-  }, [data, visibleNodes]);
-  
-
   
   const renderedLinks = useMemo(() => {
     const thickness = 0.02; 

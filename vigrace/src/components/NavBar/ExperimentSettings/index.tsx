@@ -48,21 +48,27 @@ export default function ExperimentSettings(){
         <h3 className="font-semibold text-neutral-400 text-small">
             Ajustes del experimento.
         </h3>
-        <Select placeholder="Escoge un sujeto." selectedKeys={[selectedKeys.first]} onChange={handleSubjectChange} >
+        <Select placeholder="Escoge un sujeto."
+        aria-label="Escoge un sujeto."
+        selectedKeys={[selectedKeys.first]} onChange={handleSubjectChange} >
             {subjects.map((subject) => (
                 <SelectItem key={subject} textValue={subject}>
                     {subject}
                 </SelectItem>
             ))}
         </Select>
-        <Select placeholder="Tipo de gamma." selectedKeys={[selectedKeys.second]} onChange={handleGammaTypeChange}>
+        <Select placeholder="Tipo de gamma."
+        aria-label="Tipo de gamma."
+        selectedKeys={[selectedKeys.second]} onChange={handleGammaTypeChange}>
             {gammaTypes.map((gammaType) => (
                 <SelectItem key={gammaType} textValue={gammaType}>
                     {gammaType}
                 </SelectItem>
             ))}
         </Select>
-        <Select placeholder="Etapa del experimento." selectedKeys={[selectedKeys.thrid]} onChange={handleStageChange}>
+        <Select placeholder="Etapa del experimento."
+        aria-label="Etapa del experimento."
+        selectedKeys={[selectedKeys.thrid]} onChange={handleStageChange}>
             {stages.map((stage) => (
                 <SelectItem key={stage} textValue={stage}>
                     {stage}
