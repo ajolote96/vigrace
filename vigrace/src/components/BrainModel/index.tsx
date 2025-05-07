@@ -24,6 +24,8 @@ function getNodePosition(name: string){
       return [0.6, 2.15, 0];
     case "C4": 
       return [-0.6, 2.15, 0];
+    case "C3":
+      return [0.6, 2.1, 0];
     case "P3": 
       return [0.5, 2.1, -0.6];
     case "P4":
@@ -74,32 +76,30 @@ export default function BrainModel() {
   const brainRef = useRef<THREE.Group>(null);
   const { showTooltips, onClickShowTooltips, showGlassEffect, data, nodes: visibleNodes, currentIndex } = useGlobalContext();
 
-  const [nodes] = useState<Node[]>([
-    { position: [0, 2.35, 0], name: "Nodo Cz" },
-    { position: [0.6, 2.15, 0], name: "Nodo C2" },
-    { position: [-0.6, 2.15, 0], name: "Nodo C4" },
-    { position: [0.5, 2.1, -0.6], name: "Nodo P3" },
-    { position: [-0.5, 2.1, -0.6], name: "Nodo P4" },
-    { position: [0, 2.15, -0.7], name: "Nodo Pz" },
-    { position: [0.5, 2.1, 0.6], name: "Nodo F3" },
-    { position: [-0.5, 2.1, 0.6], name: "Nodo F4" },
-    { position: [-0, 2.25, 0.6], name: "Nodo Fz" },
-    { position: [0.35, 1.8, -1], name: "Nodo O1"},   
-    { position: [-0.35, 1.8, -1], name: "Nodo O2"} , 
-    { position: [0.4, 1.9, 1], name: "Nodo Fp1" },
-    { position: [-0.4, 1.9, 1], name: "Nodo Fp2" },
-    { position: [1.05, 1.6, 0], name: "Nodo T3"},
-    { position: [-1.05, 1.6, 0], name: "Nodo T4"}, 
-    { position: [-1, 1.6, -0.6], name: "Nodo T6"}, 
-    { position: [1, 1.6, -0.6], name: "Nodo T5"}, 
-    { position: [-0.9, 1.55, 0.6], name: "Nodo F8" },
-    { position: [0.9, 1.55, 0.6], name: "Nodo F7" },
-  ]);
+  const nodes = useMemo(() => {
+    const uniqueNodes: string[] = [...new Set(data.map(node => node.electrode))];
+    return visibleNodes.length === 0 ? uniqueNodes.map((name: string) => {
+      const position: [number, number, number] = getNodePosition(name) as [number, number, number]; 
+      return {
+        position, 
+        name: `Nodo ${name}`, 
+      }
+    }) : visibleNodes.map((name: string) => {
+      const position: [number, number, number] = getNodePosition(name) as [number, number, number]; 
+      return {
+        position, 
+        name: `Nodo ${name}`, 
+      }
+    })
+  }, [visibleNodes, currentIndex, data])
 
   const links: Link[] = [
     { source: "Nodo Cz", target: "Nodo C2" },
     { source: "Nodo Cz", target: "Nodo C4" },
     { source: "Nodo C2", target: "Nodo P3" },
+    { source: "Nodo C3", target: "Nodo P3" },
+    { source: "Nodo C3", target: "Nodo Cz" },
+    { source: "Nodo C3", target: "Nodo F3" },
     { source: "Nodo Pz", target: "Nodo P4" },
     { source: "Nodo Pz", target: "Nodo P3" },
     { source: "Nodo Pz", target: "Nodo Cz" },
@@ -139,6 +139,7 @@ export default function BrainModel() {
     if (visibleNodes.length === 0) return nodes; 
     return data.filter(node => visibleNodes.includes(node.electrode));
   }, [data, visibleNodes]);
+  
 
   
   const renderedLinks = useMemo(() => {
