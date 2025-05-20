@@ -25,6 +25,8 @@ export interface GlobalContextProps {
     frequency: string; 
     stage: string; 
     showNodeValue: boolean; 
+    showModel: boolean; 
+    setShowModel: Dispatch<SetStateAction<boolean>>;
     setShowGlassEffect: Dispatch<SetStateAction<boolean>>;
     setAmbientLight: Dispatch<SetStateAction<number>>;
     setDownLight: Dispatch<SetStateAction<number>>;

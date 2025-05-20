@@ -1,13 +1,11 @@
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/Addons.js";
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo, useCallback } from "react";
 import * as THREE from "three";
 import { Html } from "@react-three/drei";
 import { useGlobalContext } from "../../providers/GlobalContext";
 import { cn } from "@heroui/react";
-import { links, getNodePosition, splitArray  } from "./utils";
-
-
+import { links, getNodePosition, splitArray } from "./utils";
 
 export default function BrainModel() {
   const model = useLoader(GLTFLoader, "/brain_project.glb");
@@ -20,6 +18,7 @@ export default function BrainModel() {
     nodes: visibleNodes,
     currentIndex,
     showNodeValue,
+    showModel,
   } = useGlobalContext();
 
   const nodes = useMemo(() => {
@@ -53,19 +52,17 @@ export default function BrainModel() {
 
   const scenes = useMemo(() => {
     const uniqueNodes: string[] = [
-      ...new Set(data.map((node) => node.electrode))
-    ]
-    return splitArray(data, uniqueNodes.length); 
-  }, [nodes])
-
-
+      ...new Set(data.map((node) => node.electrode)),
+    ];
+    return splitArray(data, uniqueNodes.length);
+  }, [nodes]);
 
   const [activeNode, setActiveNode] = useState<number | null>(null);
 
-  const getNodeVec = (name: string) => {
+  const getNodeVec = useCallback((name: string) => {
     const node = nodes.find((n) => n.name === name);
     return node ? new THREE.Vector3(...node.position) : null;
-  };
+  }, [nodes]); 
 
   const renderedLinks = useMemo(() => {
     const thickness = 0.02;
@@ -112,58 +109,62 @@ export default function BrainModel() {
     </Html>
   ) : (
     <group ref={brainRef}>
-      <primitive
-        object={model.scene}
-        scale={2}
-        onPointerMissed={() => setActiveNode(null)}
-      />
+      {showModel && (
+        <primitive
+          object={model.scene}
+          scale={2}
+          onPointerMissed={() => setActiveNode(null)}
+        />
+      )}
 
-      {/* Render nodes */}
-      {scenes[currentIndex].filter((node) => {
-        if (visibleNodes.length === 0) {
-          return true;
-        }
-        return visibleNodes.includes(node.electrode);
-      }).map((node, idx) => (
-        <group key={idx} position={getNodePosition(node.electrode)}>
-          <mesh
-            onClick={(e) => {
-              e.stopPropagation();
-              setActiveNode(idx);
-            }}
-            onPointerOver={(e) => {
-              e.stopPropagation();
-              document.body.style.cursor = "pointer";
-            }}
-            onPointerOut={(e) => {
-              e.stopPropagation();
-              document.body.style.cursor = "auto";
-            }}
-          >
-            <sphereGeometry args={[0.1, 16, 16]} />
-            <meshStandardMaterial color="lightgray" />
-          </mesh>
-          {((onClickShowTooltips && activeNode === idx) || showTooltips) && (
-            <Html
-              distanceFactor={8}
-              className={cn(
-                "bg-foreground-400 px-2 py-1 text-nowrap text-sm shadow-2xl border-1 rounded-lg dark:border-white  border-black text-black dark:text-white font-extrabold",
-                showGlassEffect && "backdrop-safari bg-foreground-400/15"
-              )}
-              style={{
-                transform: "translate(-50%, -120%)",
+
+      {scenes[currentIndex]
+        .filter((node) => {
+          if (visibleNodes.length === 0) {
+            return true;
+          }
+          return visibleNodes.includes(node.electrode);
+        })
+        .map((node, idx) => (
+          <group key={idx} position={getNodePosition(node.electrode)}>
+            <mesh
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveNode(idx);
+              }}
+              onPointerOver={(e) => {
+                e.stopPropagation();
+                document.body.style.cursor = "pointer";
+              }}
+              onPointerOut={(e) => {
+                e.stopPropagation();
+                document.body.style.cursor = "auto";
               }}
             >
-              <p className="text-center">{`Nodo ${node.electrode}`}</p>
-              {showNodeValue && (
-                <p className="font-semibold text-sm text-center">
-                  {parseFloat(node.degree.toString()).toFixed(2)}
-                </p>
-              )}
-            </Html>
-          )}
-        </group>
-      ))}
+              <sphereGeometry args={[0.1, 16, 16]} />
+              <meshStandardMaterial color="lightgray" />
+            </mesh>
+            {((onClickShowTooltips && activeNode === idx) || showTooltips) && (
+              <Html
+                distanceFactor={8}
+                className={cn(
+                  "bg-foreground-400 px-2 py-1 text-nowrap text-sm shadow-2xl border-1 rounded-lg dark:border-white  border-black text-black dark:text-white font-extrabold",
+                  showGlassEffect && "backdrop-safari bg-foreground-400/15"
+                )}
+                style={{
+                  transform: "translate(-50%, -120%)",
+                }}
+              >
+                <p className="text-center">{`Nodo ${node.electrode}`}</p>
+                {showNodeValue && (
+                  <p className="font-semibold text-sm text-center">
+                    {parseFloat(node.degree.toString()).toFixed(2)}
+                  </p>
+                )}
+              </Html>
+            )}
+          </group>
+        ))}
 
       {renderedLinks}
     </group>

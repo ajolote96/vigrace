@@ -2,6 +2,7 @@ import { Card, CardBody, Switch, Drawer, DrawerBody, DrawerContent,
     DrawerHeader, DrawerFooter, Button, useDisclosure, Checkbox, CheckboxGroup, CardHeader  } from "@heroui/react";
 import { useGlobalContext } from "../../../providers/GlobalContext";
 import { AiOutlineNodeIndex as Node } from "react-icons/ai";
+
 interface SectionProps {
     title: string;
     description?: string;
@@ -40,6 +41,8 @@ export default function NodeSettings() {
         setNodes, 
         setShowNodeValue, 
         showNodeValue, 
+        setShowModel, 
+        showModel, 
     } = useGlobalContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
     function handleShowTooltips(): void {
@@ -57,6 +60,9 @@ export default function NodeSettings() {
     
     function handleShowNodeValue(): void {
         setShowNodeValue((prev: boolean) => !prev);
+    }
+    function handleShowModel(): void {
+        setShowModel((prev: boolean) => !prev);
     }
     return (
         <div className="flex flex-col items-start gap-2 justify-between w-full">
@@ -87,6 +93,13 @@ export default function NodeSettings() {
             value={showNodeValue}
             onChange={handleShowNodeValue}
             />
+            <Section 
+            title="Mostrar modelo 3D"
+            description="Muestra el modelo del cerebro 3D. "
+            value={showModel}
+            onChange={handleShowModel}
+            />
+
             <Button className="w-full" variant="flat" 
             startContent={<Node aria-hidden className="focus:outline-none" />}
             onPress={onOpen}
