@@ -16,15 +16,19 @@ import NodeSettings from "./NodeSettings";
 import FrameSettings from "./FrameSetttings";
 import LoadFile from "./LoadFile";
 import ExperimentSettings from "./ExperimentSettings";
-
+import { useNavigate } from "react-router";
 export default function Sidebar({ children }: { children: ReactNode }) {
     const { theme, setTheme } = useTheme();
     const [isOpen, setIsOpen] = useState<boolean>(true);
     const [sidebarVariants, mainCotenntVarianst] = useNavbarVariants();
+    const navigate = useNavigate();
     function handleToggle(): void {
         setIsOpen((prev: boolean) => !prev);
     }
     
+    function handleLogout(): void {
+        navigate("/");
+    }
 
     return (
         <div className="w-full flex flex-col max-h-screen">
@@ -58,6 +62,7 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                         startContent={
                             <FaPowerOff aria-hidden className="focus:outline-none" />
                         }
+                        onPress={handleLogout}
                     >
                         Cerrar sesión.
                     </Button>
@@ -68,7 +73,7 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                     animate={isOpen ? "open" : "closed"}
                     variants={sidebarVariants}
                     data-open={isOpen}
-                    className="flex border-r-1 pb-12 scroll-container relative dark:border-gray-800 border-gray-200 flex-col items-center min-h-[94vh] gap-4 justify-start px-3 xl:max-w-1/6 max-w-1/5 bg-foreground-400/10  "
+                    className="flex border-r-1 scroll-container relative dark:border-gray-800 border-gray-200 flex-col items-center min-h-[94vh] gap-4 justify-start px-3 xl:max-w-1/6 max-w-1/5 bg-foreground-400/10  "
                 >
                     <ExperimentSettings />
                     <Divider />
