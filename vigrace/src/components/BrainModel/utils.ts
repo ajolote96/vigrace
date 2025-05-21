@@ -131,8 +131,8 @@ export function useBrainModel(data: Data[], currentIndex: number, visibleNodes: 
     const uniqueNodes: string[] = [
       ...new Set(data.map((node) => node.electrode)),
     ];
-    return splitArray(data, uniqueNodes.length);
-  }, [nodes, subject, frequency, stage]);
+    return splitArray(data.filter(item =>  item.subject === subject), uniqueNodes.length);
+  }, [data, subject, frequency, stage]);
 
   const [activeNode, setActiveNode] = useState<number | null>(null);
 

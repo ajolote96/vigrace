@@ -8,7 +8,7 @@ import { cn } from "@heroui/react";
 import { links, getNodePosition, useBrainModel } from "./utils";
 
 function getSize(degree: number, maxValue: number, maxSize: number): number {
-  return (degree / maxValue / 10) * maxSize * 1.1;
+  return (degree / maxValue / 10) * maxSize;
 }
 
 function getColor(percentage: number): string {
@@ -132,7 +132,8 @@ export default function BrainModel() {
         />
       )}
 
-      {scenes[currentIndex]
+      {scenes
+      [currentIndex]
         .filter((node) => {
           if (visibleNodes.length === 0) {
             return true;
@@ -175,6 +176,7 @@ export default function BrainModel() {
                 {showNodeValue && (
                   <p className="font-semibold text-sm text-center">
                     {parseFloat(node.degree.toString()).toFixed(2)}
+                    {node.subject}
                   </p>
                 )}
               </Html>
