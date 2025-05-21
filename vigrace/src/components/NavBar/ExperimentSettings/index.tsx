@@ -16,12 +16,15 @@ export default function ExperimentSettings(){
     useEffect(() => {
         if (subjects.length > 0) {
             setSelectedKeys((prev) => ({ ...prev, first: subjects[0] }));
+            setSubject(subjects[0]);
         }
         if (gammaTypes.length > 0) {
             setSelectedKeys((prev) => ({ ...prev, second: gammaTypes[0] }));
+            setFrequency(gammaTypes[0]);
         }
         if (stages.length > 0) {
             setSelectedKeys((prev) => ({ ...prev, thrid: stages[0] }));
+            setStage(stages[0]);
         }
     }, [data]); 
 

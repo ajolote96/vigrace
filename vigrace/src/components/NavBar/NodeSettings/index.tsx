@@ -12,10 +12,10 @@ import {
     Checkbox,
     CheckboxGroup,
     CardHeader,
-    Slider, 
-    type SliderValue
+    Divider,
+    Slider,
 } from "@heroui/react";
-import { useGlobalContext } from "../../../providers/GlobalContext";
+import useNodeSettings from "./utils";
 import { AiOutlineNodeIndex as Node } from "react-icons/ai";
 
 interface SectionProps {
@@ -45,41 +45,23 @@ function Section({ title, description, value, onChange }: SectionProps) {
 
 export default function NodeSettings() {
     const {
+        allNodes,
         showTooltips,
-        setShowTooltips,
+        handleShowTooltips,
         onClickShowTooltips,
-        setOnClickShowTooltips,
+        handleOnClickShowTooltips,
         showGlassEffect,
-        setShowGlassEffect,
-        data,
+        handleShowGlassEffect,
+        showNodeValue,
+        handleShowNodeValue,
+        showModel,
+        handleShowModel,
         nodes,
         setNodes,
-        setShowNodeValue,
-        showNodeValue,
-        setShowModel,
-        showModel,
-        setMaxValue, 
-    } = useGlobalContext();
+        maxSphereSize,
+        handleMaxSphereSize,
+    } = useNodeSettings();
     const { isOpen, onOpen, onClose } = useDisclosure();
-    function handleShowTooltips(): void {
-        setShowTooltips((prev: boolean) => !prev);
-    }
-
-    const allNodes = [...new Set(data.map((item) => item.electrode as string))];
-    function handleOnClickShowTooltips(): void {
-        setOnClickShowTooltips((prev: boolean) => !prev);
-    }
-
-    function handleShowGlassEffect(): void {
-        setShowGlassEffect((prev: boolean) => !prev);
-    }
-
-    function handleShowNodeValue(): void {
-        setShowNodeValue((prev: boolean) => !prev);
-    }
-    function handleShowModel(): void {
-        setShowModel((prev: boolean) => !prev);
-    }
     return (
         <div className="flex flex-col items-start gap-2 justify-between w-full">
             <h2 className="font-semibold text-neutral-400 text-start w-full text-small">
@@ -115,7 +97,16 @@ export default function NodeSettings() {
                 value={showModel}
                 onChange={handleShowModel}
             />
-
+            <Divider className="my-2" />
+            <Slider
+                value={maxSphereSize}
+                onChange={handleMaxSphereSize}
+                label="Tamaño maximo del nodo"
+                step={0.1}
+                minValue={0.5}
+                maxValue={2}
+                showTooltip
+            />
             <Button
                 className="w-full"
                 variant="flat"

@@ -7,8 +7,54 @@ import { useGlobalContext } from "../../providers/GlobalContext";
 import { cn } from "@heroui/react";
 import { links, getNodePosition, useBrainModel } from "./utils";
 
-function getSize(degree: number, maxValue: number): number {
-  return (degree / maxValue)  / 10; 
+function getSize(degree: number, maxValue: number, maxSize: number): number {
+  return (degree / maxValue / 10) * maxSize * 1.1;
+}
+
+function getColor(percentage: number): string {
+  const colors = [
+    "#0000ff", // Azul
+    "#00ffff", // Cian
+    "#00ff00", // Verde
+    "#ffff00", // Amarillo
+    "#ff0000", // Rojo
+  ];
+
+  const clamp = (num: number, min: number, max: number) =>
+    Math.max(min, Math.min(num, max));
+
+  const hexToRgb = (hex: string) => {
+    const clean = hex.replace("#", "");
+    const bigint = parseInt(clean, 16);
+    return {
+      r: (bigint >> 16) & 255,
+      g: (bigint >> 8) & 255,
+      b: bigint & 255,
+    };
+  };
+
+  const rgbToHex = (r: number, g: number, b: number): string =>
+    "#" +
+    [r, g, b]
+      .map((x) => {
+        const hex = Math.round(x).toString(16);
+        return hex.length === 1 ? "0" + hex : hex;
+      })
+      .join("");
+
+  const numSegments = colors.length - 1;
+  const t = clamp(percentage, 0, 1) * numSegments;
+  const segment = Math.floor(t);
+  const localT = t - segment;
+
+  const startColor = hexToRgb(colors[segment]);
+  const endColor = hexToRgb(colors[segment + 1]);
+
+  const r = startColor.r + (endColor.r - startColor.r) * localT;
+  const g = startColor.g + (endColor.g - startColor.g) * localT;
+  const b = startColor.b + (endColor.b - startColor.b) * localT;
+
+  return rgbToHex(r, g, b);
 }
 
 export default function BrainModel() {
@@ -23,9 +69,14 @@ export default function BrainModel() {
     currentIndex,
     showNodeValue,
     showModel,
-    maxValue, 
+    maxValue,
+    maxSphereSize,
+    subject,
+    frequency,
+    stage,
   } = useGlobalContext();
-  const { nodes, scenes, setActiveNode, getNodeVec, activeNode } = useBrainModel(data, currentIndex, visibleNodes);
+  const { nodes, scenes, setActiveNode, getNodeVec, activeNode } =
+    useBrainModel(data, currentIndex, visibleNodes);
 
   const renderedLinks = useMemo(() => {
     const thickness = 0.02;
@@ -53,11 +104,12 @@ export default function BrainModel() {
           quaternion={quaternion.toArray()}
         >
           <cylinderGeometry args={[thickness, thickness, length, 8]} />
-          <meshStandardMaterial color={0x00aaff}  />
+          <meshStandardMaterial color={0x00aaff} />
         </mesh>
       );
     });
   }, [nodes, links]);
+
 
   return data.length === 0 ? (
     <Html center>
@@ -79,7 +131,6 @@ export default function BrainModel() {
           onPointerMissed={() => setActiveNode(null)}
         />
       )}
-
 
       {scenes[currentIndex]
         .filter((node) => {
@@ -104,8 +155,10 @@ export default function BrainModel() {
                 document.body.style.cursor = "auto";
               }}
             >
-              <sphereGeometry args={[getSize(node.degree, maxValue), 16, 16]} />
-              <meshStandardMaterial color="lightgrey" />
+              <sphereGeometry
+                args={[getSize(node.degree, maxValue, maxSphereSize), 16, 16]}
+              />
+              <meshStandardMaterial color={getColor(node.degree / maxValue)} />
             </mesh>
             {((onClickShowTooltips && activeNode === idx) || showTooltips) && (
               <Html

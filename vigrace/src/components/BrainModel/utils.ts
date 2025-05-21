@@ -1,4 +1,5 @@
 import { useMemo, useState, useCallback } from "react";
+import { useGlobalContext } from "../../providers/GlobalContext";
 import * as THREE from "three";
 import type { Data } from "../../types/types";
 type Link = {
@@ -96,6 +97,7 @@ export function splitArray<T>(array: T[], chunkSize: number): T[][] {
 }
 
 export function useBrainModel(data: Data[], currentIndex: number, visibleNodes: string[]) {
+  const { subject, frequency, stage } = useGlobalContext();
   const nodes = useMemo(() => {
     const uniqueNodes: string[] = [
       ...new Set(data.map((node) => node.electrode)),
@@ -130,7 +132,7 @@ export function useBrainModel(data: Data[], currentIndex: number, visibleNodes: 
       ...new Set(data.map((node) => node.electrode)),
     ];
     return splitArray(data, uniqueNodes.length);
-  }, [nodes]);
+  }, [nodes, subject, frequency, stage]);
 
   const [activeNode, setActiveNode] = useState<number | null>(null);
 
