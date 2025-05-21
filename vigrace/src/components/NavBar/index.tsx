@@ -17,6 +17,7 @@ import FrameSettings from "./FrameSetttings";
 import LoadFile from "./LoadFile";
 import ExperimentSettings from "./ExperimentSettings";
 import { useNavigate } from "react-router";
+
 export default function Sidebar({ children }: { children: ReactNode }) {
     const { theme, setTheme } = useTheme();
     const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -29,7 +30,6 @@ export default function Sidebar({ children }: { children: ReactNode }) {
     function handleLogout(): void {
         navigate("/");
     }
-
     return (
         <div className="w-full flex flex-col max-h-screen">
             <nav className="flex flex-row items-center px-3 py-2 justify-between w-full h-[5vh] bg-foreground-400/10">

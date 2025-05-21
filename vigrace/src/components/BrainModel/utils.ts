@@ -1,4 +1,6 @@
-
+import { useMemo, useState, useCallback } from "react";
+import * as THREE from "three";
+import type { Data } from "../../types/types";
 type Link = {
     source: string;
     target: string;
@@ -91,4 +93,58 @@ export function splitArray<T>(array: T[], chunkSize: number): T[][] {
     result.push(array.slice(i, i + chunkSize));
   }
   return result;
+}
+
+export function useBrainModel(data: Data[], currentIndex: number, visibleNodes: string[]) {
+  const nodes = useMemo(() => {
+    const uniqueNodes: string[] = [
+      ...new Set(data.map((node) => node.electrode)),
+    ];
+    return visibleNodes.length === 0
+      ? uniqueNodes.map((name: string) => {
+        const position: [number, number, number] = getNodePosition(name) as [
+          number,
+          number,
+          number
+        ];
+        return {
+          position,
+          name: `Nodo ${name}`,
+        };
+      })
+      : visibleNodes.map((name: string) => {
+        const position: [number, number, number] = getNodePosition(name) as [
+          number,
+          number,
+          number
+        ];
+        return {
+          position,
+          name: `Nodo ${name}`,
+        };
+      });
+  }, [visibleNodes, currentIndex, data]);
+
+  const scenes = useMemo(() => {
+    const uniqueNodes: string[] = [
+      ...new Set(data.map((node) => node.electrode)),
+    ];
+    return splitArray(data, uniqueNodes.length);
+  }, [nodes]);
+
+  const [activeNode, setActiveNode] = useState<number | null>(null);
+
+  const getNodeVec = useCallback((name: string) => {
+    const node = nodes.find((n) => n.name === name);
+    return node ? new THREE.Vector3(...node.position) : null;
+  }, [nodes]); 
+
+  return {
+    nodes,
+    scenes,
+    activeNode,
+    setActiveNode,
+    getNodeVec, 
+  }
+
 }

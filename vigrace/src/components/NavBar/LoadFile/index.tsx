@@ -14,7 +14,7 @@ import type { ChangeEvent } from "react";
 import type { Data } from "../../../types/types";
 
 export default function LoadFile() {
-    const { setData } = useGlobalContext();
+    const { setData, setMaxValue } = useGlobalContext();
     const inputRef = useRef<HTMLInputElement>(null);
     const [isOpen, setIsOpen] = useState<boolean>(false); 
 
@@ -48,6 +48,8 @@ export default function LoadFile() {
                     return;
                 }
                 setData(data);
+                const maxValue: number = Math.max(...data.map((item) => item.degree));
+                setMaxValue(maxValue);
                 addToast({
                     title: "Éxito",
                     description: "El archivo se ha cargado correctamente.",

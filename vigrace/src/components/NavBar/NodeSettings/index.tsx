@@ -1,5 +1,20 @@
-import { Card, CardBody, Switch, Drawer, DrawerBody, DrawerContent, 
-    DrawerHeader, DrawerFooter, Button, useDisclosure, Checkbox, CheckboxGroup, CardHeader  } from "@heroui/react";
+import {
+    Card,
+    CardBody,
+    Switch,
+    Drawer,
+    DrawerBody,
+    DrawerContent,
+    DrawerHeader,
+    DrawerFooter,
+    Button,
+    useDisclosure,
+    Checkbox,
+    CheckboxGroup,
+    CardHeader,
+    Slider, 
+    type SliderValue
+} from "@heroui/react";
 import { useGlobalContext } from "../../../providers/GlobalContext";
 import { AiOutlineNodeIndex as Node } from "react-icons/ai";
 
@@ -34,22 +49,23 @@ export default function NodeSettings() {
         setShowTooltips,
         onClickShowTooltips,
         setOnClickShowTooltips,
-        showGlassEffect, 
+        showGlassEffect,
         setShowGlassEffect,
-        data, 
-        nodes, 
-        setNodes, 
-        setShowNodeValue, 
-        showNodeValue, 
-        setShowModel, 
-        showModel, 
+        data,
+        nodes,
+        setNodes,
+        setShowNodeValue,
+        showNodeValue,
+        setShowModel,
+        showModel,
+        setMaxValue, 
     } = useGlobalContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
     function handleShowTooltips(): void {
         setShowTooltips((prev: boolean) => !prev);
     }
 
-    const allNodes = [...new Set(data.map((item) => item.electrode as string))]
+    const allNodes = [...new Set(data.map((item) => item.electrode as string))];
     function handleOnClickShowTooltips(): void {
         setOnClickShowTooltips((prev: boolean) => !prev);
     }
@@ -57,7 +73,7 @@ export default function NodeSettings() {
     function handleShowGlassEffect(): void {
         setShowGlassEffect((prev: boolean) => !prev);
     }
-    
+
     function handleShowNodeValue(): void {
         setShowNodeValue((prev: boolean) => !prev);
     }
@@ -81,28 +97,30 @@ export default function NodeSettings() {
                 value={onClickShowTooltips}
                 onChange={handleOnClickShowTooltips}
             />
-            <Section 
+            <Section
                 title="Efecto de desenfoque."
                 description="Muestra un efecto traslucido en los nodos. Deshabilitarlo puede mejorar el rendimiento."
                 value={showGlassEffect}
                 onChange={handleShowGlassEffect}
             />
-            <Section 
-            title="Mostrar los valores del nodo."
-            description="Muestra el valor del nodo en el tooltip. "
-            value={showNodeValue}
-            onChange={handleShowNodeValue}
+            <Section
+                title="Mostrar los valores del nodo."
+                description="Muestra el valor del nodo en el tooltip. "
+                value={showNodeValue}
+                onChange={handleShowNodeValue}
             />
-            <Section 
-            title="Mostrar modelo 3D"
-            description="Muestra el modelo del cerebro 3D. "
-            value={showModel}
-            onChange={handleShowModel}
+            <Section
+                title="Mostrar modelo 3D"
+                description="Muestra el modelo del cerebro 3D. "
+                value={showModel}
+                onChange={handleShowModel}
             />
 
-            <Button className="w-full" variant="flat" 
-            startContent={<Node aria-hidden className="focus:outline-none" />}
-            onPress={onOpen}
+            <Button
+                className="w-full"
+                variant="flat"
+                startContent={<Node aria-hidden className="focus:outline-none" />}
+                onPress={onOpen}
             >
                 Ocultar/Mostrar nodos.
             </Button>
@@ -110,32 +128,37 @@ export default function NodeSettings() {
                 <DrawerContent>
                     {() => (
                         <>
-                        <DrawerHeader>Ocultar o mostrar nodos.</DrawerHeader>
-                        <DrawerBody className="overflow-y-auto">
-                            <Card className="dark:border-gray-700 border-gray-200 border-1">
-                                <CardHeader>
-                                    <h2 className="font-extrabold text-lg">Nodos visibles.</h2>
-                                </CardHeader>
-                                <CardBody className=" flex flex-col items-start justify-center gap-2">
-                                    {allNodes.length === 0 ? (
-                                        <p className="text-neutral-400 w-full text-center">No hay nodos disponibles.</p>
-                                    ) : (
-                                        <CheckboxGroup onChange={setNodes} value={nodes.length > 0 ? nodes : allNodes}>
-                                            {allNodes.map((node) => (
-                                                <Checkbox key={node} value={node}>
-                                                    {node}
-                                                </Checkbox>
-                                            ))}
-                                        </CheckboxGroup>
-                                    )}
-                                </CardBody>
-                            </Card>
-                        </DrawerBody>
-                        <DrawerFooter>
-                            <Button className="w-full" onPress={onClose}>
-                                Guardar cambios.
-                            </Button>
-                        </DrawerFooter>
+                            <DrawerHeader>Ocultar o mostrar nodos.</DrawerHeader>
+                            <DrawerBody className="overflow-y-auto">
+                                <Card className="dark:border-gray-700 border-gray-200 border-1">
+                                    <CardHeader>
+                                        <h2 className="font-extrabold text-lg">Nodos visibles.</h2>
+                                    </CardHeader>
+                                    <CardBody className=" flex flex-col items-start justify-center gap-2">
+                                        {allNodes.length === 0 ? (
+                                            <p className="text-neutral-400 w-full text-center">
+                                                No hay nodos disponibles.
+                                            </p>
+                                        ) : (
+                                            <CheckboxGroup
+                                                onChange={setNodes}
+                                                value={nodes.length > 0 ? nodes : allNodes}
+                                            >
+                                                {allNodes.map((node) => (
+                                                    <Checkbox key={node} value={node}>
+                                                        {node}
+                                                    </Checkbox>
+                                                ))}
+                                            </CheckboxGroup>
+                                        )}
+                                    </CardBody>
+                                </Card>
+                            </DrawerBody>
+                            <DrawerFooter>
+                                <Button className="w-full" onPress={onClose}>
+                                    Guardar cambios.
+                                </Button>
+                            </DrawerFooter>
                         </>
                     )}
                 </DrawerContent>

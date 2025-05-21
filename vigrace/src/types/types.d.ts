@@ -26,6 +26,10 @@ export interface GlobalContextProps {
     stage: string; 
     showNodeValue: boolean; 
     showModel: boolean; 
+    maxValue: number; 
+    maxSphereSize: number; 
+    setMaxSphereSize: Dispatch<SetStateAction<number>>;
+    setMaxValue: Dispatch<SetStateAction<number>>;
     setShowModel: Dispatch<SetStateAction<boolean>>;
     setShowGlassEffect: Dispatch<SetStateAction<boolean>>;
     setAmbientLight: Dispatch<SetStateAction<number>>;

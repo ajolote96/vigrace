@@ -1,11 +1,15 @@
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/Addons.js";
-import { useRef, useState, useMemo, useCallback } from "react";
+import { useRef, useMemo } from "react";
 import * as THREE from "three";
 import { Html } from "@react-three/drei";
 import { useGlobalContext } from "../../providers/GlobalContext";
 import { cn } from "@heroui/react";
-import { links, getNodePosition, splitArray } from "./utils";
+import { links, getNodePosition, useBrainModel } from "./utils";
+
+function getSize(degree: number, maxValue: number): number {
+  return (degree / maxValue)  / 10; 
+}
 
 export default function BrainModel() {
   const model = useLoader(GLTFLoader, "/brain_project.glb");
@@ -19,50 +23,9 @@ export default function BrainModel() {
     currentIndex,
     showNodeValue,
     showModel,
+    maxValue, 
   } = useGlobalContext();
-
-  const nodes = useMemo(() => {
-    const uniqueNodes: string[] = [
-      ...new Set(data.map((node) => node.electrode)),
-    ];
-    return visibleNodes.length === 0
-      ? uniqueNodes.map((name: string) => {
-        const position: [number, number, number] = getNodePosition(name) as [
-          number,
-          number,
-          number
-        ];
-        return {
-          position,
-          name: `Nodo ${name}`,
-        };
-      })
-      : visibleNodes.map((name: string) => {
-        const position: [number, number, number] = getNodePosition(name) as [
-          number,
-          number,
-          number
-        ];
-        return {
-          position,
-          name: `Nodo ${name}`,
-        };
-      });
-  }, [visibleNodes, currentIndex, data]);
-
-  const scenes = useMemo(() => {
-    const uniqueNodes: string[] = [
-      ...new Set(data.map((node) => node.electrode)),
-    ];
-    return splitArray(data, uniqueNodes.length);
-  }, [nodes]);
-
-  const [activeNode, setActiveNode] = useState<number | null>(null);
-
-  const getNodeVec = useCallback((name: string) => {
-    const node = nodes.find((n) => n.name === name);
-    return node ? new THREE.Vector3(...node.position) : null;
-  }, [nodes]); 
+  const { nodes, scenes, setActiveNode, getNodeVec, activeNode } = useBrainModel(data, currentIndex, visibleNodes);
 
   const renderedLinks = useMemo(() => {
     const thickness = 0.02;
@@ -76,7 +39,7 @@ export default function BrainModel() {
         .multiplyScalar(0.5);
 
       const dir = new THREE.Vector3().subVectors(end, start);
-      const length = dir.length();
+      const length: number = dir.length();
 
       const quaternion = new THREE.Quaternion().setFromUnitVectors(
         new THREE.Vector3(0, 1, 0),
@@ -90,7 +53,7 @@ export default function BrainModel() {
           quaternion={quaternion.toArray()}
         >
           <cylinderGeometry args={[thickness, thickness, length, 8]} />
-          <meshStandardMaterial color={0x00aaff} />
+          <meshStandardMaterial color={0x00aaff}  />
         </mesh>
       );
     });
@@ -141,8 +104,8 @@ export default function BrainModel() {
                 document.body.style.cursor = "auto";
               }}
             >
-              <sphereGeometry args={[0.1, 16, 16]} />
-              <meshStandardMaterial color="lightgray" />
+              <sphereGeometry args={[getSize(node.degree, maxValue), 16, 16]} />
+              <meshStandardMaterial color="lightgrey" />
             </mesh>
             {((onClickShowTooltips && activeNode === idx) || showTooltips) && (
               <Html
