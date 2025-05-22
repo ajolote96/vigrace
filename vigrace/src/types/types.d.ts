@@ -28,6 +28,10 @@ export interface GlobalContextProps {
     showModel: boolean; 
     maxValue: number; 
     maxSphereSize: number; 
+    isPlaying: boolean; 
+    speed: number; 
+    setSpeed: Dispatch<SetStateAction<number>>;
+    setIsPlaying: Dispatch<SetStateAction<boolean>>;
     setMaxSphereSize: Dispatch<SetStateAction<number>>;
     setMaxValue: Dispatch<SetStateAction<number>>;
     setShowModel: Dispatch<SetStateAction<boolean>>;

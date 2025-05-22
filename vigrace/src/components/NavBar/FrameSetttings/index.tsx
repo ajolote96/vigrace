@@ -1,6 +1,6 @@
 import { Slider, type SliderValue, Tooltip } from "@heroui/react";
 import { useGlobalContext } from "../../../providers/GlobalContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { ChangeEvent, KeyboardEvent } from "react";
 
 export default function FrameSettings() {
@@ -13,6 +13,8 @@ export default function FrameSettings() {
         setDownLight,
         setCurrentIndex,
         currentIndex,
+        speed, 
+        setSpeed, 
     } = useGlobalContext();
     const [currentFrame, setCurrentFrame] = useState<number>(0);
     function handleAmbientLight(value: SliderValue): void {
@@ -39,6 +41,10 @@ export default function FrameSettings() {
         setCurrentFrame(0);
     }
 
+    useEffect(() => {
+        setCurrentFrame(currentIndex);
+    }, [currentIndex])
+
     function handleKeyDown(event: KeyboardEvent<HTMLInputElement>): void {
         if (event.key === "Enter") {
             const newValue: number = parseInt(event.currentTarget.value);
@@ -46,6 +52,10 @@ export default function FrameSettings() {
                 setCurrentIndex(newValue);
             }
         }
+    }
+
+    function handleChangeSpeed(value: SliderValue): void {
+        setSpeed(value as number);
     }
 
 
@@ -57,9 +67,18 @@ export default function FrameSettings() {
             <Slider
                 label="Velocidad"
                 showTooltip
-                minValue={0}
-                maxValue={1}
+                minValue={0.2}
+                maxValue={2}
                 step={0.1}
+                value={speed}
+                onChange={handleChangeSpeed}
+                renderValue={({ children, ...props }) => (
+                    <output {...props}>
+                        <span className="text-tiny font-semibold">
+                            {speed}x
+                        </span>
+                    </output>
+                )}
                 showSteps
             />
 

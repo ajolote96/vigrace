@@ -134,7 +134,7 @@ export default function BrainModel() {
 
       {scenes
       [currentIndex]
-        .filter((node) => {
+        ?.filter((node) => {
           if (visibleNodes.length === 0) {
             return true;
           }

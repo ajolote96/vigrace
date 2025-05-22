@@ -26,6 +26,9 @@ export default function Dashboard(){
     const [showModel, setShowModel] = useState<boolean>(true);
     const [maxValue, setMaxValue] = useState<number>(0);
     const [maxSphereSize, setMaxSphereSize] = useState<number>(1);
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [speed, setSpeed] = useState<number>(1);
+
     return (
         <div className="flex flex-row min-h-screen bg-background text-foreground overflow-hidden">
             <GlobalContext.Provider value={{
@@ -61,6 +64,10 @@ export default function Dashboard(){
                 setMaxValue,
                 maxSphereSize,
                 setMaxSphereSize,
+                isPlaying,
+                setIsPlaying,
+                speed,
+                setSpeed,
             }}>
             <Sidebar >
             <main className="flex flex-col items-center justify-center w-full flex-1 h-[95vh]">
