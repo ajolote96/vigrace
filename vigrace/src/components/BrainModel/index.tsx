@@ -71,9 +71,6 @@ export default function BrainModel() {
     showModel,
     maxValue,
     maxSphereSize,
-    subject,
-    frequency,
-    stage,
   } = useGlobalContext();
   const { nodes, scenes, setActiveNode, getNodeVec, activeNode } =
     useBrainModel(data, currentIndex, visibleNodes);
