@@ -3,43 +3,41 @@ import { useGlobalContext } from "../../providers/GlobalContext";
 import * as THREE from "three";
 import type { Data } from "../../types/types";
 type Link = {
-    source: string;
-    target: string;
-  };
-  
+  source: string;
+  target: string;
+};
 
-export  const links: Link[] = [
-    { source: "Nodo Cz", target: "Nodo C2" },
-    { source: "Nodo Cz", target: "Nodo C4" },
-    { source: "Nodo C2", target: "Nodo P3" },
-    { source: "Nodo C3", target: "Nodo P3" },
-    { source: "Nodo C3", target: "Nodo Cz" },
-    { source: "Nodo C3", target: "Nodo F3" },
-    { source: "Nodo Pz", target: "Nodo P4" },
-    { source: "Nodo Pz", target: "Nodo P3" },
-    { source: "Nodo Pz", target: "Nodo Cz" },
-    { source: "Nodo P4", target: "Nodo C4" },
-    { source: "Nodo F3", target: "Nodo C2" },
-    { source: "Nodo Fz", target: "Nodo Cz" },
-    { source: "Nodo F4", target: "Nodo C4" },
-    { source: "Nodo F4", target: "Nodo Fz" },
-    { source: "Nodo Fz", target: "Nodo F3" },
-    { source: "Nodo O1", target: "Nodo P3" },
-    { source: "Nodo O2", target: "Nodo P4" },
-    { source: "Nodo Fp1", target: "Nodo F3" },
-    { source: "Nodo Fp2", target: "Nodo F4" },
-    { source: "Nodo T4", target: "Nodo C4" },
-    { source: "Nodo T3", target: "Nodo C2" },
-    { source: "Nodo T5", target: "Nodo P3" },
-    { source: "Nodo T3", target: "Nodo T5" },
-    { source: "Nodo T4", target: "Nodo T6" },
-    { source: "Nodo T6", target: "Nodo P4" },
-    { source: "Nodo F7", target: "Nodo F3" },
-    { source: "Nodo F8", target: "Nodo F4" },
-    { source: "Nodo F8", target: "Nodo T4" },
-    { source: "Nodo F7", target: "Nodo T3" },
-  ];
-
+export const links: Link[] = [
+  { source: "Nodo Cz", target: "Nodo C2" },
+  { source: "Nodo Cz", target: "Nodo C4" },
+  { source: "Nodo C2", target: "Nodo P3" },
+  { source: "Nodo C3", target: "Nodo P3" },
+  { source: "Nodo C3", target: "Nodo Cz" },
+  { source: "Nodo C3", target: "Nodo F3" },
+  { source: "Nodo Pz", target: "Nodo P4" },
+  { source: "Nodo Pz", target: "Nodo P3" },
+  { source: "Nodo Pz", target: "Nodo Cz" },
+  { source: "Nodo P4", target: "Nodo C4" },
+  { source: "Nodo F3", target: "Nodo C2" },
+  { source: "Nodo Fz", target: "Nodo Cz" },
+  { source: "Nodo F4", target: "Nodo C4" },
+  { source: "Nodo F4", target: "Nodo Fz" },
+  { source: "Nodo Fz", target: "Nodo F3" },
+  { source: "Nodo O1", target: "Nodo P3" },
+  { source: "Nodo O2", target: "Nodo P4" },
+  { source: "Nodo Fp1", target: "Nodo F3" },
+  { source: "Nodo Fp2", target: "Nodo F4" },
+  { source: "Nodo T4", target: "Nodo C4" },
+  { source: "Nodo T3", target: "Nodo C2" },
+  { source: "Nodo T5", target: "Nodo P3" },
+  { source: "Nodo T3", target: "Nodo T5" },
+  { source: "Nodo T4", target: "Nodo T6" },
+  { source: "Nodo T6", target: "Nodo P4" },
+  { source: "Nodo F7", target: "Nodo F3" },
+  { source: "Nodo F8", target: "Nodo F4" },
+  { source: "Nodo F8", target: "Nodo T4" },
+  { source: "Nodo F7", target: "Nodo T3" },
+];
 
 export function getNodePosition(name: string): [number, number, number] {
   switch (name) {
@@ -96,7 +94,11 @@ export function splitArray<T>(array: T[], chunkSize: number): T[][] {
   return result;
 }
 
-export function useBrainModel(data: Data[], currentIndex: number, visibleNodes: string[]) {
+export function useBrainModel(
+  data: Data[],
+  currentIndex: number,
+  visibleNodes: string[]
+) {
   const { subject, frequency, stage } = useGlobalContext();
   const nodes = useMemo(() => {
     const uniqueNodes: string[] = [
@@ -131,22 +133,34 @@ export function useBrainModel(data: Data[], currentIndex: number, visibleNodes: 
     const uniqueNodes: string[] = [
       ...new Set(data.map((node) => node.electrode)),
     ];
-    return splitArray(data.filter(item =>  item.subject === subject), uniqueNodes.length);
-  }, [data, subject, frequency, stage]);
+    return splitArray(
+      data
+        .filter((item) => item.subject === subject && item.frequency === frequency && item.stages === stage)
+        .filter((node) => {
+          if (visibleNodes.length === 0) {
+            return true;
+          }
+          return visibleNodes.includes(node.electrode);
+        }),
+      uniqueNodes.length
+    );
+  }, [data, subject, frequency, stage, visibleNodes]);
 
   const [activeNode, setActiveNode] = useState<number | null>(null);
 
-  const getNodeVec = useCallback((name: string) => {
-    const node = nodes.find((n) => n.name === name);
-    return node ? new THREE.Vector3(...node.position) : null;
-  }, [nodes]); 
+  const getNodeVec = useCallback(
+    (name: string) => {
+      const node = nodes.find((n) => n.name === name);
+      return node ? new THREE.Vector3(...node.position) : null;
+    },
+    [nodes]
+  );
 
   return {
     nodes,
     scenes,
     activeNode,
     setActiveNode,
-    getNodeVec, 
-  }
-
+    getNodeVec,
+  };
 }

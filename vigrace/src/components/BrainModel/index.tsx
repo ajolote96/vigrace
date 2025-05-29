@@ -13,11 +13,11 @@ function getSize(degree: number, maxValue: number, maxSize: number): number {
 
 function getColor(percentage: number): string {
   const colors = [
-    "#0000ff", // Azul
-    "#00ffff", // Cian
-    "#00ff00", // Verde
-    "#ffff00", // Amarillo
-    "#ff0000", // Rojo
+    "#0000ff", 
+    "#00ffff", 
+    "#00ff00", 
+    "#ffff00", 
+    "#ff0000", 
   ];
 
   const clamp = (num: number, min: number, max: number) =>
@@ -72,8 +72,7 @@ export default function BrainModel() {
     maxValue,
     maxSphereSize,
   } = useGlobalContext();
-  const { nodes, scenes, setActiveNode, getNodeVec, activeNode } =
-    useBrainModel(data, currentIndex, visibleNodes);
+  const { nodes, scenes, setActiveNode, getNodeVec, activeNode } = useBrainModel(data, currentIndex, visibleNodes);
 
   const renderedLinks = useMemo(() => {
     const thickness = 0.02;
@@ -131,13 +130,7 @@ export default function BrainModel() {
 
       {scenes
       [currentIndex]
-        ?.filter((node) => {
-          if (visibleNodes.length === 0) {
-            return true;
-          }
-          return visibleNodes.includes(node.electrode);
-        })
-        .map((node, idx) => (
+        ?.map((node, idx) => (
           <group key={idx} position={getNodePosition(node.electrode)}>
             <mesh
               onClick={(e) => {
@@ -173,7 +166,6 @@ export default function BrainModel() {
                 {showNodeValue && (
                   <p className="font-semibold text-sm text-center">
                     {parseFloat(node.degree.toString()).toFixed(2)}
-                    {node.subject}
                   </p>
                 )}
               </Html>
