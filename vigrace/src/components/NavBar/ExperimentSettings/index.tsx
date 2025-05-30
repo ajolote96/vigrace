@@ -3,7 +3,7 @@ import { Select, SelectItem} from "@heroui/react";
 import {useState, useEffect, type ChangeEvent} from "react";
 
 export default function ExperimentSettings(){
-    const { data, setSubject, setFrequency, setStage } = useGlobalContext();
+    const { data, setSubject, setFrequency, setStage, subject } = useGlobalContext();
     const subjects: string[] = [...new Set(data.map((item) => item.subject as string))];
     const gammaTypes: string[] = [...new Set(data.map((item) => item.frequency as string))];
     const stages: string[] = [...new Set(data.map((item) => item.stages as string))];
@@ -16,7 +16,7 @@ export default function ExperimentSettings(){
     useEffect(() => {
         if (subjects.length > 0) {
             setSelectedKeys((prev) => ({ ...prev, first: subjects[0] }));
-            setSubject(subjects[0]);
+            setSubject(prev => new Set([...prev, subjects[0]]));
         }
         if (gammaTypes.length > 0) {
             setSelectedKeys((prev) => ({ ...prev, second: gammaTypes[0] }));
@@ -30,7 +30,9 @@ export default function ExperimentSettings(){
 
     function handleSubjectChange(event: ChangeEvent<HTMLSelectElement>): void {
         const selectedSubject = event.target.value;
-        setSubject(selectedSubject);
+        const values = event.target.value.split(",");
+        const lastTwoElements = values.slice(-2);
+        setSubject(new Set(lastTwoElements));
         setSelectedKeys((prev) => ({ ...prev, first: selectedSubject }));
     }
 
@@ -53,7 +55,9 @@ export default function ExperimentSettings(){
         </h3>
         <Select placeholder="Escoge un sujeto."
         aria-label="Escoge un sujeto."
-        selectedKeys={[selectedKeys.first]} onChange={handleSubjectChange} >
+        selectionMode="multiple"
+        description="Puedes seleccionar hasta dos sujetos al mismo tiempo."
+        selectedKeys={subject} onChange={handleSubjectChange} >
             {subjects.map((subject) => (
                 <SelectItem key={subject} textValue={subject}>
                     {subject}

@@ -7,7 +7,6 @@ import {
 import { FaPowerOff } from "react-icons/fa6";
 import { FaImage as Image } from "react-icons/fa";
 import { useTheme } from "@heroui/use-theme";
-import ReproductionSettings from "./ReproductionSettings";
 import { TbLayoutSidebarLeftCollapseFilled as Layout } from "react-icons/tb";
 import { useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
@@ -76,8 +75,6 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                     className="flex border-r-1 scroll-container relative dark:border-gray-800 border-gray-200 flex-col items-center min-h-[94vh] gap-4 justify-start px-3 xl:max-w-1/6 max-w-1/5 bg-foreground-400/10  "
                 >
                     <ExperimentSettings />
-                    <Divider />
-                    <ReproductionSettings />
                     <Divider />
                     <FrameSettings />
                     <Divider />

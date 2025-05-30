@@ -57,7 +57,7 @@ function getColor(percentage: number): string {
   return rgbToHex(r, g, b);
 }
 
-export default function BrainModel() {
+export default function BrainModel({subject}: {subject?: string}) {
   const model = useLoader(GLTFLoader, "/brain_project.glb");
   const brainRef = useRef<THREE.Group>(null);
   const {
@@ -72,7 +72,7 @@ export default function BrainModel() {
     maxValue,
     maxSphereSize,
   } = useGlobalContext();
-  const { nodes, scenes, setActiveNode, getNodeVec, activeNode } = useBrainModel(data, currentIndex, visibleNodes);
+  const { nodes, scenes, setActiveNode, getNodeVec, activeNode } = useBrainModel(data, currentIndex, visibleNodes, subject);
 
   const renderedLinks = useMemo(() => {
     const thickness = 0.02;
@@ -119,7 +119,9 @@ export default function BrainModel() {
       </div>
     </Html>
   ) : (
+    <>
     <group ref={brainRef}>
+
       {showModel && (
         <primitive
           object={model.scene}
@@ -175,5 +177,6 @@ export default function BrainModel() {
 
       {renderedLinks}
     </group>
+    </>
   );
 }

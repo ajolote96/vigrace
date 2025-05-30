@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
 import type { Variants } from "framer-motion";
-
+import type { Selection } from "@heroui/react";
 export interface Data{
     electrode: string; 
     degree: number; 
@@ -19,7 +19,7 @@ export interface GlobalContextProps {
         degree: number; 
         [key: string]: string | number; 
     }[]; 
-    subject: string; 
+    subject: Selection; 
     nodes: string[]; 
     currentIndex: number; 
     frequency: string; 
@@ -47,7 +47,7 @@ export interface GlobalContextProps {
         [key: string]: string | number; 
     }[]>>
     setNodes: Dispatch<SetStateAction<string[]>>;
-    setSubject: Dispatch<SetStateAction<string>>;
+    setSubject: Dispatch<SetStateAction<Selection>>;
     setCurrentIndex: Dispatch<SetStateAction<number>>;
     setFrequency: Dispatch<SetStateAction<string>>;
     setStage: Dispatch<SetStateAction<string>>;

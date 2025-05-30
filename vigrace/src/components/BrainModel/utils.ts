@@ -97,9 +97,10 @@ export function splitArray<T>(array: T[], chunkSize: number): T[][] {
 export function useBrainModel(
   data: Data[],
   currentIndex: number,
-  visibleNodes: string[]
+  visibleNodes: string[],
+  subject?: string
 ) {
-  const { subject, frequency, stage } = useGlobalContext();
+  const { frequency, stage } = useGlobalContext();
   const nodes = useMemo(() => {
     const uniqueNodes: string[] = [
       ...new Set(data.map((node) => node.electrode)),
