@@ -75,7 +75,7 @@ export default function Dashboard() {
           <main className="flex flex-col items-center justify-center w-full flex-1 h-[95vh]">
             <div className="w-full h-full flex items-center justify-center">
               {Array.from(subject).map((sub, index: number) => (
-                <Canvas className="w-auto h-auto" key={index}>
+                <Canvas className={(index === 1) ? "border-l-1 dark:border-gray-700 border-gray-200" : ""} key={index}>
                   <ambientLight intensity={ambientLight} />
                   <directionalLight
                     position={[10, 10, 10]}
