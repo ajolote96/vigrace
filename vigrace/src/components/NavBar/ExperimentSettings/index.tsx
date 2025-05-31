@@ -1,7 +1,8 @@
 import { useGlobalContext } from "../../../providers/GlobalContext";
 import { Select, SelectItem} from "@heroui/react";
 import {useState, useEffect, type ChangeEvent} from "react";
-
+import useStore from "../../../store";
+import translations from "../../../translations";
 export default function ExperimentSettings(){
     const { data, setSubject, setFrequency, setStage, subject } = useGlobalContext();
     const subjects: string[] = [...new Set(data.map((item) => item.subject as string))];
@@ -12,6 +13,9 @@ export default function ExperimentSettings(){
         second: "",
         thrid: "",
     }); 
+    
+    const language = useStore((state) => state.language);
+
 
     useEffect(() => {
         if (subjects.length > 0) {
@@ -51,12 +55,12 @@ export default function ExperimentSettings(){
     return ( 
         <div className="flex flex-col items-start gap-2 justify-center w-full">
         <h3 className="font-semibold text-neutral-400 text-small">
-            Ajustes del experimento.
+            {translations[language].experimentSettings}
         </h3>
-        <Select placeholder="Escoge un sujeto."
-        aria-label="Escoge un sujeto."
+        <Select placeholder={translations[language].placeholderSubject}
+        aria-label={translations[language].placeholderSubject}
         selectionMode="multiple"
-        description="Puedes seleccionar hasta dos sujetos al mismo tiempo."
+        description={translations[language].description}
         selectedKeys={subject} onChange={handleSubjectChange} >
             {subjects.map((subject) => (
                 <SelectItem key={subject} textValue={subject}>
@@ -64,8 +68,8 @@ export default function ExperimentSettings(){
                 </SelectItem>
             ))}
         </Select>
-        <Select placeholder="Tipo de gamma."
-        aria-label="Tipo de gamma."
+        <Select placeholder={translations[language].gammaType}
+        aria-label={translations[language].gammaType}
         selectedKeys={[selectedKeys.second]} onChange={handleGammaTypeChange}>
             {gammaTypes.map((gammaType) => (
                 <SelectItem key={gammaType} textValue={gammaType}>
@@ -73,8 +77,8 @@ export default function ExperimentSettings(){
                 </SelectItem>
             ))}
         </Select>
-        <Select placeholder="Etapa del experimento."
-        aria-label="Etapa del experimento."
+        <Select placeholder={translations[language].experimentStage}
+        aria-label={translations[language].experimentStage}
         selectedKeys={[selectedKeys.thrid]} onChange={handleStageChange}>
             {stages.map((stage) => (
                 <SelectItem key={stage} textValue={stage}>

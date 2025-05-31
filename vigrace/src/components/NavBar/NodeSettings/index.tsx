@@ -17,7 +17,8 @@ import {
 } from "@heroui/react";
 import useNodeSettings from "./utils";
 import { AiOutlineNodeIndex as Node } from "react-icons/ai";
-
+import useStore from "../../../store";
+import translations from "../../../translations";
 interface SectionProps {
     title: string;
     description?: string;
@@ -61,39 +62,40 @@ export default function NodeSettings() {
         maxSphereSize,
         handleMaxSphereSize,
     } = useNodeSettings();
+    const language = useStore((state) => state.language);
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <div className="flex flex-col items-start gap-2 justify-between w-full">
             <h2 className="font-semibold text-neutral-400 text-start w-full text-small">
-                Ajustes de los nodos.
+               {translations[language].nodeSettings}
             </h2>
             <Section
-                title="Mostrar los tooltips"
-                description="Muestra el nombre de todos los nodos"
+                title={translations[language].tooltipTitle}
+                description={translations[language].tooltipDescription}
                 value={showTooltips}
                 onChange={handleShowTooltips}
             />
             <Section
-                title="Clicks habilitados"
-                description="Permite que al hacer click en un nodo de muestra su nombre."
+                title={translations[language].clickTitle}
+                description={translations[language].clickDescription}
                 value={onClickShowTooltips}
                 onChange={handleOnClickShowTooltips}
             />
             <Section
-                title="Efecto de desenfoque."
-                description="Muestra un efecto traslucido en los nodos. Deshabilitarlo puede mejorar el rendimiento."
+                title={translations[language].blurTitle}
+                description={translations[language].blurDescription}
                 value={showGlassEffect}
                 onChange={handleShowGlassEffect}
             />
             <Section
-                title="Mostrar los valores del nodo."
-                description="Muestra el valor del nodo en el tooltip. "
+                title={translations[language].showNodeValue}
+                description={translations[language].showNodeValueDescription}
                 value={showNodeValue}
                 onChange={handleShowNodeValue}
             />
             <Section
-                title="Mostrar modelo 3D"
-                description="Muestra el modelo del cerebro 3D. "
+                title={translations[language].showModel}
+                description={translations[language].showModelDescription}
                 value={showModel}
                 onChange={handleShowModel}
             />
@@ -101,7 +103,7 @@ export default function NodeSettings() {
             <Slider
                 value={maxSphereSize}
                 onChange={handleMaxSphereSize}
-                label="Tamaño maximo del nodo"
+                label={translations[language].maxValue}
                 step={0.1}
                 minValue={0.5}
                 maxValue={2}
@@ -113,13 +115,13 @@ export default function NodeSettings() {
                 startContent={<Node aria-hidden className="focus:outline-none" />}
                 onPress={onOpen}
             >
-                Ocultar/Mostrar nodos.
+                {translations[language].hideNodes}
             </Button>
             <Drawer isOpen={isOpen} onClose={onClose} size="xs">
                 <DrawerContent>
                     {() => (
                         <>
-                            <DrawerHeader>Ocultar o mostrar nodos.</DrawerHeader>
+                            <DrawerHeader>{translations[language].hideNodes}</DrawerHeader>
                             <DrawerBody className="overflow-y-auto">
                                 <Card className="dark:border-gray-700 border-gray-200 border-1">
                                     <CardHeader>
@@ -147,7 +149,7 @@ export default function NodeSettings() {
                             </DrawerBody>
                             <DrawerFooter>
                                 <Button className="w-full" onPress={onClose}>
-                                    Guardar cambios.
+                                    {translations[language].saveChanges}
                                 </Button>
                             </DrawerFooter>
                         </>

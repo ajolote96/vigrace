@@ -3,6 +3,8 @@ import {
     Tooltip,
     Switch,
     Divider,
+
+    
 } from "@heroui/react";
 import { FaPowerOff } from "react-icons/fa6";
 import { FaImage as Image } from "react-icons/fa";
@@ -15,12 +17,15 @@ import NodeSettings from "./NodeSettings";
 import FrameSettings from "./FrameSetttings";
 import LoadFile from "./LoadFile";
 import ExperimentSettings from "./ExperimentSettings";
+import LanguageDropdown from "./Dropdown";
 import { useNavigate } from "react-router";
-
+import useStore from "../../store";
+import translations from "../../translations";
 export default function Sidebar({ children }: { children: ReactNode }) {
     const { theme, setTheme } = useTheme();
     const [isOpen, setIsOpen] = useState<boolean>(true);
     const [sidebarVariants, mainCotenntVarianst] = useNavbarVariants();
+    const language = useStore((state) => state.language);
     const navigate = useNavigate();
     function handleToggle(): void {
         setIsOpen((prev: boolean) => !prev);
@@ -41,17 +46,19 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                     <h1 className="font-extrabold text-xl">Vigrace &bull; Playground</h1>
                 </div>
                 <div className="flex flex-row items-center justify-between w-auto gap-2">
+                    <Tooltip content="Cambiar de tema" showArrow className="border-1 border-gray-300 dark:border-gray-700">
                     <Switch
                         isSelected={theme === "dark"}
                         onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
-                    >
-                        Modo oscuro
-                    </Switch>
+                        aria-label="Cambiar de tema de la aplicación"
+                    />
+                    </Tooltip>
+                    <LanguageDropdown />
                     <Button
                         size="sm"
                         startContent={<Image aria-hidden className="focus:outline-none" />}
                     >
-                        Cargar imagen.
+                        {translations[language].uploadImage}
                     </Button>
                     <LoadFile />
                     <Button
@@ -63,7 +70,7 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                         }
                         onPress={handleLogout}
                     >
-                        Cerrar sesión.
+                        {translations[language].logout}
                     </Button>
                 </div>
             </nav>

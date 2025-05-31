@@ -12,12 +12,13 @@ import { FaCode } from "react-icons/fa";
 import { useRef, useState } from "react";
 import type { ChangeEvent } from "react";
 import type { Data } from "../../../types/types";
-
+import useStore from "../../../store";
+import translations from "../../../translations";
 export default function LoadFile() {
     const { setData, setMaxValue } = useGlobalContext();
     const inputRef = useRef<HTMLInputElement>(null);
     const [isOpen, setIsOpen] = useState<boolean>(false); 
-
+    const language = useStore((state) => state.language);
     function handleFileChange(event: ChangeEvent<HTMLInputElement>): void {
         const file = event.target.files?.[0];
         if (!file) return; 
@@ -67,7 +68,7 @@ export default function LoadFile() {
                     size="sm"
                     startContent={<FaCode aria-hidden className="focus:outline-none" />}
                 >
-                    Cargar archivo.
+                    {translations[language].loadFile}
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-96 flex flex-col gap-1 items-start">
