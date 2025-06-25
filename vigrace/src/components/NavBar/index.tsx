@@ -46,7 +46,7 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                     <h1 className="font-extrabold text-xl">Vigrace &bull; Playground</h1>
                 </div>
                 <div className="flex flex-row items-center justify-between w-auto gap-2">
-                    <Tooltip content="Cambiar de tema" showArrow className="border-1 border-gray-300 dark:border-gray-700">
+                    <Tooltip content={language === "en" ? "Switch theme" : "Cambiar tema"} showArrow className="border-1 border-gray-300 dark:border-gray-700">
                     <Switch
                         isSelected={theme === "dark"}
                         onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -54,12 +54,6 @@ export default function Sidebar({ children }: { children: ReactNode }) {
                     />
                     </Tooltip>
                     <LanguageDropdown />
-                    <Button
-                        size="sm"
-                        startContent={<Image aria-hidden className="focus:outline-none" />}
-                    >
-                        {translations[language].uploadImage}
-                    </Button>
                     <LoadFile />
                     <Button
                         variant="flat"

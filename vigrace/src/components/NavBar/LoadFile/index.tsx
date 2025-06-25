@@ -64,59 +64,68 @@ export default function LoadFile() {
     return (
         <Popover backdrop="opaque" showArrow isOpen={isOpen} onOpenChange={setIsOpen}>
             <PopoverTrigger>
-                <Button
-                    size="sm"
-                    startContent={<FaCode aria-hidden className="focus:outline-none" />}
-                >
-                    {translations[language].loadFile}
-                </Button>
+            <Button
+                size="sm"
+                startContent={<FaCode aria-hidden className="focus:outline-none" />}
+            >
+                {translations[language].loadFile}
+            </Button>
             </PopoverTrigger>
             <PopoverContent className="w-96 flex flex-col gap-1 items-start">
-                <h2 className="font-semibold text-start w-full text-lg">
-                    Importante. Leer con atencion
-                </h2>
-                <p>
-                    Para poder cargar un archivo, es necesario que sea un archivo{" "}
-                    <Kbd>CSV</Kbd>. Y además, debe tener las siguientes cabeceras:
+            <h2 className="font-semibold text-start w-full text-lg">
+                {language === "en" ? "Important. Read carefully" : "Importante. Leer con atención"}
+            </h2>
+            <p>
+                {language === "en"
+                ? "To upload a file, it must be a CSV file. Additionally, it must have the following headers: "
+                : "Para poder cargar un archivo, es necesario que sea un archivo CSV. Y además, debe tener las siguientes cabeceras: "}
+                
+            </p>
+            <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 border-l-1 px-2">
+                <h3 className="text-small font-semibold">ELECTRODE</h3>
+                <p className="text-neutral-400 text-tiny">
+                    {language === "en"
+                    ? "All the nodes used in the experiment."
+                    : "Todos los nodos que se usaron en el experimento."}
                 </p>
-                <div className="flex flex-col gap-1">
-                    <div className="flex flex-col gap-1 border-l-1 px-2">
-                        <h3 className="text-small font-semibold">ELECTRODE</h3>
-                        <p className="text-neutral-400 text-tiny">
-                            Todos los nodos que se usuaron en el experimento.
-                        </p>
-                    </div>
-                    <div className="flex flex-col gap-1 border-l-1 px-2">
-                        <h3 className="text-small font-semibold">DEGREE</h3>
-                        <p className="text-neutral-400 text-tiny">
-                            Grado de correlación.
-                        </p>
-                    </div>
-                    <div className="flex flex-col gap-1 border-l-1 px-2">
-                        <h3 className="text-small font-semibold">SUBJECT</h3>
-                        <p className="text-neutral-400 text-tiny">
-                            Sujetos diferentes que se usaron en el experimento.
-                        </p>
-                    </div>
-                    <div className="flex flex-col gap-1 border-l-1 px-2">
-                        <h3 className="text-small font-semibold">FREQUENCY</h3>
-                        <p className="text-neutral-400 text-tiny">
-                            Tipos de frecencias que se usaron en el experimento.
-                        </p>
-                    </div>
                 </div>
-                <Button className="w-full" variant="flat" size="sm" color="primary" onPress={() => inputRef.current?.click()}>
-                    Cargar archivo
-                </Button>
-                <input
-                type="file"
-                accept=".csv"
-                hidden
-                ref={inputRef}
-                onChange={handleFileChange}
+                <div className="flex flex-col gap-1 border-l-1 px-2">
+                <h3 className="text-small font-semibold">DEGREE</h3>
+                <p className="text-neutral-400 text-tiny">
+                    {language === "en"
+                    ? "Degree of correlation."
+                    : "Grado de correlación."}
+                </p>
+                </div>
+                <div className="flex flex-col gap-1 border-l-1 px-2">
+                <h3 className="text-small font-semibold">SUBJECT</h3>
+                <p className="text-neutral-400 text-tiny">
+                    {language === "en"
+                    ? "Different subjects used in the experiment."
+                    : "Sujetos diferentes que se usaron en el experimento."}
+                </p>
+                </div>
+                <div className="flex flex-col gap-1 border-l-1 px-2">
+                <h3 className="text-small font-semibold">FREQUENCY</h3>
+                <p className="text-neutral-400 text-tiny">
+                    {language === "en"
+                    ? "Types of frequencies used in the experiment."
+                    : "Tipos de frecuencias que se usaron en el experimento."}
+                </p>
+                </div>
+            </div>
+            <Button className="w-full" variant="flat" size="sm" color="primary" onPress={() => inputRef.current?.click()}>
+                {language === "en" ? "Upload file" : "Cargar archivo"}
+            </Button>
+            <input
+            type="file"
+            accept=".csv"
+            hidden
+            ref={inputRef}
+            onChange={handleFileChange}
             />
             </PopoverContent>
-
         </Popover>
     );
 }

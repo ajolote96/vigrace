@@ -10,6 +10,7 @@ import type { Data } from "../../types/types";
 import type { Selection } from "@heroui/react";
 import useStore from "../../store";
 import translations from "../../translations";
+
 export default function Dashboard() {
   const [ambientLight, setAmbientLight] = useState<number>(1);
   const [downLight, setDownLight] = useState<number>(2);
