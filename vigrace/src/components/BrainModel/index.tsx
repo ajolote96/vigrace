@@ -6,7 +6,7 @@ import { Html } from "@react-three/drei";
 import { useGlobalContext } from "../../providers/GlobalContext";
 import { cn } from "@heroui/react";
 import { links, getNodePosition, useBrainModel } from "./utils";
-
+import useStore from "../../store";
 function getSize(degree: number, maxValue: number, maxSize: number): number {
   return (degree / maxValue / 10) * maxSize;
 }
@@ -73,7 +73,8 @@ export default function BrainModel({subject}: {subject?: string}) {
     maxSphereSize,
   } = useGlobalContext();
   const { nodes, scenes, setActiveNode, getNodeVec, activeNode } = useBrainModel(data, currentIndex, visibleNodes, subject);
-
+  const language = useStore((state) => state.language);
+  
   const renderedLinks = useMemo(() => {
     const thickness = 0.02;
     return links.map((link, idx) => {
@@ -107,18 +108,7 @@ export default function BrainModel({subject}: {subject?: string}) {
   }, [nodes, links]);
 
 
-  return data.length === 0 ? (
-    <Html center>
-      <div className="flex flex-col items-center justify-center w-[500px] font-sans h-full">
-        <h1 className="font-extrabold text-3xl">
-          No has cargado información aún
-        </h1>
-        <p className="font-semibold text-center">
-          Empieza subiendo un archivo desde la barra de navegación.
-        </p>
-      </div>
-    </Html>
-  ) : (
+  return  (
     <>
     <group ref={brainRef}>
 
@@ -164,7 +154,7 @@ export default function BrainModel({subject}: {subject?: string}) {
                   transform: "translate(-50%, -120%)",
                 }}
               >
-                <p className="text-center">{`Nodo ${node.electrode}`}</p>
+                <p className="text-center">{language === "en" ? `Node ${node.electrode}` : `Nodo ${node.electrode}`}</p>
                 {showNodeValue && (
                   <p className="font-semibold text-sm text-center">
                     {parseFloat(node.degree.toString()).toFixed(2)}

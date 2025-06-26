@@ -125,7 +125,7 @@ export default function NodeSettings() {
                             <DrawerBody className="overflow-y-auto">
                                 <Card className="dark:border-gray-700 border-gray-200 border-1">
                                     <CardHeader>
-                                        <h2 className="font-extrabold text-lg">Nodos visibles.</h2>
+                                        <h2 className="font-extrabold text-lg">{language === "en" ? "Visible nodes" : "Nodos visibles"}</h2>
                                     </CardHeader>
                                     <CardBody className=" flex flex-col items-start justify-center gap-2">
                                         {allNodes.length === 0 ? (

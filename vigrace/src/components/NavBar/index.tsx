@@ -7,7 +7,6 @@ import {
     
 } from "@heroui/react";
 import { FaPowerOff } from "react-icons/fa6";
-import { FaImage as Image } from "react-icons/fa";
 import { useTheme } from "@heroui/use-theme";
 import { TbLayoutSidebarLeftCollapseFilled as Layout } from "react-icons/tb";
 import { useState, type ReactNode } from "react";
