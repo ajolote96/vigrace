@@ -1,0 +1,39 @@
+name: 🚀 Deploy website on push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      - name: 🛠️ Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: 📦 Install dependencies
+        run: |
+          cd vigrace
+          bun install
+
+      - name: 🔨 Build project
+        run: |
+          cd vigrace
+          bun run build
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ftp.innovusweb.com
+          username: vigrace@inventores.org
+          password: ${{ secrets.FTP_ACCESO }}
+          local-dir: ./vigrace/dist/
+          
+      - name: 🎉 Done
+        run: echo "Deployed!"
